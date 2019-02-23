@@ -1,0 +1,57 @@
+createdAt: "2018-06-19T19:23:41.565Z"
+updatedAt: "2018-06-24T22:20:33.237Z"
+type: "MARKDOWN_NOTE"
+folder: "bccde01890c021d732c8"
+title: "On Using iter() Built In Method"
+content: '''
+  # On Using `iter()` Built In Method
+  
+  The `iter()` method has 2 functionalities depending on how it is called. When calling `iter()` with only one argument, that argument must be a collection object which supports iteration protocol (the `__iter__()` method). The object returned is a list_iterator type object built from the collection object that was passed. For the sake of simplicity we can use a list.
+  ```python
+  >>> # Instantiate a standard Python list object
+  >>> list_object = [1, 2, 3, 4, "cat", "dog", "purple"]
+  >>> # Use iter() to return a list_iterator object to the variable
+  >>> list_iter_object = iter(list_object)
+  >>> # Demonstrate that the returned object is indeed a different type
+  >>> type(list_object)
+  <class 'list'>
+  >>> type(list_iter_object)
+  <class 'list_iterator'>
+  ```
+  Effectively this converts our list object into a generator object which yields the items from the list that was passed to `iter()`
+  
+  When we pass 2 arguments to the `iter()` method the first argument must be a callable. The iterable created in this instance will call the object callable with no arguments for each call to it's `__next__` method. If the value returned is equal to the second argument (sentinel), StopIteration will be raised, if it does not match then the value returned by the callable will be returnd.
+  
+  ```python
+  >>> # Create a list object with some identifiable data
+  >>> i = [f'{x}TR{x+3}' for x in range(30)]
+  >>> i
+  ['0TR3', '1TR4', '2TR5', '3TR6', '4TR7', '5TR8', '6TR9', '7TR10', '8TR11', '9TR12', '10TR13', '11TR14', '12TR15', '13TR16', '14TR17', '15TR18', '16TR19', '17TR20', '18TR21', '19TR22', '20TR23', '21TR24', '22TR25', '23TR26', '24TR27', '25TR28', '26TR29', '27TR30', '28TR31', '29TR32']
+  >>> # Create a list_iterable from this list (any object with a callable would work)
+  >>> i = iter(i)
+  >>> # Loop over the iterable created
+  >>> # The object created by iter() in this case is created by calling the __next__ method on the 
+  >>> # generator until the sentinel (second arg) is matched by the output
+  >>> # iteration is stopped at that point
+  >>> for _ in iter(i.__next__, '5TR8'):
+  ...     print(_)
+  ...
+  0TR3
+  1TR4
+  2TR5
+  3TR6
+  4TR7
+  >>> 
+  ```
+  Let's break this down. I create a list here using some string formatting to make the items a little more unique. I use the single argument form of `iter()` to convert that list into a list_iterator. I then write a little `for loop`. The iterator I create for it to loop over is using the 2 argument form. The first argument is my callable which is the next method of my generator (called without argument). The sentinal argument is a value I know to be in the iterable. It loops calling next on the generator until that next yields the value of my sentinel argument. Upon yielding the sentinel value it raises `StopIteration` and does not return the sentinel value.
+  
+'''
+tags: [
+  "iter"
+  "built-in"
+  "stdlib"
+  "standard_library"
+  "generator"
+]
+isStarred: false
+isTrashed: false

@@ -1,0 +1,29 @@
+createdAt: "2018-06-19T19:25:22.780Z"
+updatedAt: "2018-06-24T22:20:17.687Z"
+type: "SNIPPET_NOTE"
+folder: "bccde01890c021d732c8"
+title: "Using re to determine if a match is found"
+description: "Using re to determine if a match is found"
+snippets: [
+  {
+    name: "re_match.py"
+    mode: "Python"
+    content: '''
+      import re
+      word = 'fubar'
+      regexp = re.compile(r'ba[rzd]')
+      if regexp.search(word):
+          print 'matched'
+    '''
+  }
+]
+tags: [
+  "search"
+  "text-search"
+  "re"
+  "regular-expression"
+  "regex"
+  "string"
+]
+isStarred: false
+isTrashed: false

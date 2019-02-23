@@ -1,0 +1,117 @@
+createdAt: "2018-06-26T16:03:33.999Z"
+updatedAt: "2018-06-26T16:08:44.316Z"
+type: "MARKDOWN_NOTE"
+folder: "dc87178bcf7ff750b30f"
+title: "Django Guide To Customizing the Admin View"
+content: '''
+  # Django Guide To Customizing the Admin View
+  Here is a quick write up to show you how you can customize the default admin view in django, including how to add new buttons to the template:
+  
+  Registering and unregistering models:
+  
+  If you have created a model in your models.py, you can register it in your admin.py file very simply:
+  ```python
+  #admin.py
+  from .models import Snippet
+  
+  admin.site.register(Snippet)
+  ```
+  On the other side, you can also unregister models that django adds in by default:
+  ```python
+  # admin.py
+  from django.contrib.auth.models import Group
+  
+  admin.site.unregister(Group)
+  ```
+  okay, that was simple.
+  
+  Taking customization further
+  
+  Create an admin class, in which you can further adjust some attributes:
+  
+  ```python
+  #admin.py
+  class SnippetAdmin(admin.ModelAdmin):
+      fields = ('title', 'body') # you can also use exclude = (..) to exclude certain fields
+      list_display = ('title', 'created') # control which fields to show in the list preview
+      list_filter = ('created',) # adds in a filter for the list view in the sidebar 
+  ```
+  Okay, those are some more options at your disposal.
+  
+  You can also add methods on your SnippetAdmin class and include them, for example, in the readonly_fields:
+  ```python
+  #admin.py
+  class SnippetAdmin(admin.ModelAdmin):
+      fields = ('title', 'body') # you can also use exclude = (..) to exclude certain fields
+      list_display = ('title', 'created') # control which fields to show in the list preview
+      list_filter = ('created',) # adds in a filter for the list view in the sidebar
+      readonly_fields = ('line_count',)
+  
+      def line_count(self, obj):
+          return len(obj.body.split('\\n'))
+  ```
+  Similarly, you can do the same with methods that are attached on the model directly.
+  
+  Add a custom button to the template
+  
+  For this, we can override the change_list_template attribute:
+  
+  ```python
+  #admin.py
+  class SnippetAdmin(admin.ModelAdmin):
+      fields = ('title', 'body') # you can also use exclude = (..) to exclude certain fields
+      list_display = ('title', 'created') # control which fields to show in the list preview
+      list_filter = ('created',) # adds in a filter for the list view in the sidebar
+      readonly_fields = ('line_count',)
+      change_list_template = 'admin/snippets/snippets_change_list.html' # template path
+  
+      def line_count(self, obj):
+          return len(obj.body.split('\\n'))
+  ```
+  Now create the template under the path you specified. As we want to add the button to the list view where all objects are displayed, we are going to extend the 'admin/change_list.html' file:
+  ```html
+  {% extends 'admin/change_list.html' %}
+  
+  {% block object-tools %}
+    <form action="custom-button/" method="POST">
+      {% csrf_token %}
+      <button class="button" type="submit">Submit</button>
+    </form>
+    <br />
+    {{ block.super }}
+  {% endblock %}
+  ```
+  As the custom-button/ path however doesn't exist, yet, we need to override the get_urls() function of our admin class:
+  ```python
+  #admin.py
+  class SnippetAdmin(admin.ModelAdmin):
+      fields = ('title', 'body') # you can also use exclude = (..) to exclude certain fields
+      list_display = ('title', 'created') # control which fields to show in the list preview
+      list_filter = ('created',) # adds in a filter for the list view in the sidebar
+      readonly_fields = ('line_count',)
+      change_list_template = 'admin/snippets/snippets_change_list.html' # template path
+  
+      def line_count(self, obj):
+          return len(obj.body.split('\\n'))
+  
+      def get_urls(self):
+          urls = super().get_urls()
+          custom_urls = [
+              path('custom-button/', self.custom_button_view)
+          ]
+          return custom_urls + urls
+  
+      # don't know whether it's a good convention to keep it here or put it in views.py...
+      def custom_button_view(self):
+          print("CLICKED!")
+          return HttpResponseRedirect('/')
+  ```
+  Of course, once you're in there, you can fulfill the button's purpose which depends on the reason why you added it in the first place.
+  
+  If you want a more practical example of these concepts in action (and how to give the admin view a new theme) you can check out my video about customizing the django admin: [Customizing Django Admin](https://youtu.be/g5DTIiFAiSk)
+'''
+tags: [
+  "django-admin"
+]
+isStarred: false
+isTrashed: false

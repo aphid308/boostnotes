@@ -1,0 +1,93 @@
+createdAt: "2018-06-19T17:12:58.700Z"
+updatedAt: "2018-07-25T20:31:58.775Z"
+type: "MARKDOWN_NOTE"
+folder: "b37fcbd0595412f586b4"
+title: "Fun with *args and **kwargs"
+content: '''
+  # Fun with ```*args``` and ```**kwargs```
+  ---
+  The ```*args``` and ```**kwargs``` parameters allow a function to accept optional arguments so that you can create flexible APIs in your applications.
+  ```python
+  def foo(required, *args, **kwargs):
+      print(required)
+      if args:
+          print(args)
+      if kwargs:
+          print(kwargs)
+  ```
+  The function above takes one required argument, ```required``` but can accept extra positional and keyword arguments as well. If we call the function with additional arguments ```args``` will collect positional arguments in the form of a tuple due to the ```*``` prefix. Likewise the ```kwargs``` will collect additional key/value pair arguments due to the ```**``` prefix. Calling the function will show us how Python collects these arguments and enforces required parameters.
+  ```python
+  >>> foo()
+  TypeError: "foo() missing 1 required positional arg: 'required'"
+  >>> foo('Hello')
+  Hello
+  >>> foo('hello', 1, 2, 3)
+  hello
+  (1, 2, 3)
+  >>> foo('hello', 1, 2, 3, key1='value', key2=999)
+  hello
+  (1, 2, 3)
+  {'key1': 'value', 'key2': 999}
+  ```
+  To be clear, the naming `arg` and `kwarg` is purely convention. We could name them whatever we want, the syntax that invokes the feature is `*` and `**`. For the sake of readability we should stick to the standard naming.
+  
+  ## Forwarding Optional or Keyword Arguments
+  
+  You can also pass optional or keyword parameters to other functions by using the unpacking operators, `*` and `**` when calling the function you would like to forward the arguments to. This also provides the opportunity to modify those arguments before forwarding them.
+  ```python
+  def foo(x, *args, **kwargs):
+      kwargs['name'] = 'Alice'
+      new_args = args + ('extra', )
+      bar(x, *new_args, **kwargs)
+  ```
+  This technique can be useful for writing wrappers or subclassing modules. We could use this to extend the behavior of a base class without having the replicate the full signature of the parent. This is convenient when working with an API that might change outside of your control.
+  ```python
+  class Car:
+      def __init__(self, color, mileage):
+          self.color = color
+          self.mileage = mileage
+          
+  class AlwaysBlueCar(Car):
+      def __init__(self, *args, **kwargs):
+          super().__init__(*args, **kwargs)
+          self.color = 'blue'
+          
+  >>> AlwaysBlueCar('green', 48392).color
+  'blue'
+  ```
+  The `AlwaysBlueCar` constructor passes all arguments to the parent class and then overrides one internal attribute. This can be helpful if a parent class that you inherit is changed. You can have reasonable assurance that your sub class will continue to function as expected. The downside here is that the signature for `AlwaysBlueCar` is rendered fairly useless. We have to look up the parent class in order to determine what arguments our sub class expects. We would not typically use this technique in our own class heirarchies. The more likely scenario would be that we wanted to inherit a class that is developed outside of our control. This is always dangerous territory. Tread lightly. Another scenario where this technique might be useful is when writing decorators. We can forward an arbitrary amount of arguments from the decorated function to the decorator without copying the entire signature of the parent function. 
+  
+  ```python
+  def trace(f):
+      @functools.wraps(f)
+      def decorated_function(*args, **kwargs):
+          print(f, args, kwargs)
+          result = f(*args, **kwargs)
+          print(result)
+      return decorated_function
+  
+  @trace
+  def greet(greeting, name):
+      return "{}, {}!".format(greeting, name)
+  
+  >>> greet('Hello', 'Bob')
+  <function greet at 0x1031c9158> ('Hello', 'Bob') {}
+  'Hello, Bob!'
+  ```
+  
+  These techniques can sometimes make it difficult to make the decision to write code that is explicit enough vs. adhering to DRY. When in doubt, ask someone with more insight.
+  
+  ### Key Takeaways
+  - `*args` and `**kwargs` let you write functions with a variable number of arguments in Python.
+  - `*args` collects extra positional arguments as a tuple. `**kwargs` collects the extra keyword arguments as a dictionary.
+  - The actual syntax is `*` and `**` . Calling them args and kwargs is just a convention (and one you should stick to).
+'''
+tags: [
+  "args"
+  "kwargs"
+  "key-word"
+  "argument"
+  "parameter"
+]
+isStarred: false
+isTrashed: false

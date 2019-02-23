@@ -1,0 +1,125 @@
+createdAt: "2018-06-19T17:14:22.978Z"
+updatedAt: "2018-06-24T22:23:30.343Z"
+type: "MARKDOWN_NOTE"
+folder: "87bdde29fbe492e66a59"
+title: "Active Directory User Script"
+content: '''
+  # Active Directory User Script
+  _Not gonna lie this is proprietary code from a previous job_
+  _It's not game changing stuff though probably never use it again_
+  ```powershell
+  #List of all server names
+  $tslist = @(
+  	"TS01",
+  	"TS02",
+  	"TS03",
+  	"TS04",
+  	"TS05",
+  	"TS06",
+  	"TS07",
+  	"TS08",
+  	"TS09",
+  	"TS10",
+  	"TS11",
+  	"TS12",
+  	"TS13",
+  	"TS14"
+  )
+   
+  # Just a little reminder
+  function HelpCustom {
+  	Write-Host "HelpCustom                    - Show this help"
+  	Write-Host "GetUser  <user name>          - Get user AD info. May contain wildcards (*)"
+  	Write-Host "GetTel  <user name>           - Get users phone number from AD. May contain wildcards (*)"
+  	Write-Host "SetStandardPass <user name>   - Set 'P4ssw0rd' as user pass. May contain wildcards (*)"
+  	Write-Host "ResetPass <user name>         - Set users password to 'WelkomXX'. May contain wildcards (*)"
+  	Write-Host "GetUserStatus <login name>    - Get user session status. May contain trailing wildcards (*)"
+  	Write-Host "ForceLogoff <login name>      - Force user to be logged off. May _NOT_ contain wildcards (*)"
+  }
+   
+  # Look for users in Active Directory by name
+  function GetUser([String]$search) {
+  	if(-not($search)) {
+  		Write-Host "Must provide a user name."
+  	} else {
+  		dsquery user -name $search
+  	}
+  }
+   
+  # Get phone number from Active Directory
+  function GetTel([String]$search) {
+  	if(-not($search)) {
+  		Write-Host "Must provide a user name."
+  	} else {
+  		$res = dsquery user -name $search
+  		dsget user -tel $res
+  	}
+  }
+   
+  # Set a standard password for new accounts
+  function SetStandardPass([String]$search) {
+  	if(-not($search)) {
+  		Write-Host "Must provide a user name."
+  	} else {
+  		$res = dsquery user -name $search
+  		dsmod user -pwd P4ssw0rd $res
+  	}
+  }
+   
+  # Set a randomly generated password
+  function ResetPass([String] $search) {
+  	if(-not($search)) {
+  		Write-Host "Must provide a user name."
+  	} else {
+  		$res = dsquery user -name $search
+  		$suffix = Get-Random -minimum 1 -maximum 99
+  		$newpass = "Welkom$suffix"
+  		dsmod user -pwd $newpass $res
+  		Write-Host "Set password to $newpass"
+  	}
+  }
+   
+  # Check if a user is logged in and which terminal server he's on
+  function GetUserStatus([String] $search) {	
+  	if(-not($search)) {
+  		Write-Host "Must provide a user name."
+  	} else {
+  		foreach($ts in $tslist) {
+  			$res = Invoke-Expression -Command "quser.exe /SERVER:$ts" | Select-String -pattern "$search"
+  			if($res) {
+  				Write-Host $ts
+  				Write-Host $res
+  			}
+  		}
+  	}
+  }
+   
+  # Force the logoff of a user
+  function ForceLogoff([String] $search) {	
+  	if(-not($search)) {
+  		Write-Host "Must provide a user name."
+  	} else {
+  		foreach($ts in $tslist) {
+  			Invoke-Expression -Command "quser.exe /SERVER:$ts" | Select-String "\\s+($search)\\s+(rdp-tcp#[0-9]{0,7}){0,1}\\s+(.+?)\\s+" |
+  				ForEach-Object {
+  					$usr = $_.matches[0].Groups[1].value
+  					$id = $_.matches[0].Groups[3].value
+  					Write-Host "Logging off $usr on $ts with session-id $id"
+  					Invoke-Expression -Command "logoff.exe /SERVER:$ts $id"
+  					Write-Host "Done"
+  				}
+  		}
+  	}
+  }
+  ```
+  
+'''
+tags: [
+  "windows"
+  "active-directory"
+  "powershell"
+  "user"
+  "user-id"
+]
+isStarred: false
+isTrashed: false

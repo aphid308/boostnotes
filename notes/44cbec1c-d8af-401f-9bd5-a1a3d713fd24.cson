@@ -1,0 +1,109 @@
+createdAt: "2019-02-20T16:55:18.731Z"
+updatedAt: "2019-02-21T03:33:45.300Z"
+type: "MARKDOWN_NOTE"
+folder: "cbb115fc148a179664cc"
+title: "Pandas Tutorial Pt 3 Practice Problem 1"
+tags: []
+content: '''
+  # Pandas Tutorial Pt 3 Practice Problem 1
+  ```python
+  #Tutorial pt3 Practice Tasks 1
+  import pandas as pd
+  import numpy as np
+  ```
+  
+  
+  ```python
+  #The blog_buy dataframe shows users that have purchased something from the blog
+  names = ['my_date_time', 'event', 'user_id', 'amount']
+  blog_buy = pd.read_csv('pandas_tutorial_buy.csv', delimiter=';', names = names)
+  blog_buy
+  ```
+  
+  
+  ```python
+  #The article_read dataframe shows users that have read an article on the blog
+  names = ['my_datetime', 'event', 'country', 'user_id', 'source', 'topic']
+  article_read = pd.read_csv('pandas_tutorial_read.csv', delimiter=';', names = names)
+  article_read
+  ```
+  
+  
+  ```python
+  #Our goal is to find the average revenue from users that have read an article and purchased something
+  #The first step merges our two dataframes on the username column
+  #We want to drop any entries that are not in the article_read dataframe
+  #We want to include users who didn't buy anything because those 0 amount purchases should be included in the average
+  #This all comes down to the left merge shown below
+  step_1 = article_read.merge(blog_buy, how = 'left', left_on = 'user_id', right_on = 'user_id')
+  step_1
+  ```
+  
+  
+  ```python
+  #Step 2 filters this list down to just the amounts
+  step_2 = step_1.amount
+  step_2
+  ```
+  
+  
+  ```python
+  #Step 3 takes this list and replaces the n/a fields with 0 for calculation
+  step_3 = step_2.fillna(0)
+  step_3
+  ```
+  
+  
+  ```python
+  #Finally we calculate the average of the set
+  result = step_3.mean()
+  result
+  ```
+  
+  
+  ```python
+  #Tutorial pt3 Practice Tasks 1
+  #Print the top 3 countries by total revenue between 2018-01-01 and 2018-01-07! 
+  #(Obviously, this concerns the users in the article_read dataframe again.)
+  #The first step here is the same, we need to merge the two dataframes on user_id
+  step_1 = article_read.merge(blog_buy, how = 'left', left_on = 'user_id', right_on = 'user_id')
+  step_1
+  ```
+  
+  
+  ```python
+  #We replace the null fields with int 0 for calculation
+  step_2 = step_1.fillna(0)
+  step_2
+  ```
+  
+  
+  ```python
+  #group the entries on country and sum their amount values? not sure how it's specified the value set to sum
+  step_3 = step_2.groupby('country').sum()
+  step_3
+  ```
+  
+  
+  ```python
+  #Strip away the non amount cols
+  step_4 = step_3.amount
+  step_4
+  ```
+  
+  
+  ```python
+  #Sort descending
+  step_5 = step_4.sort_values(ascending = False)
+  step_5
+  ```
+  
+  
+  ```python
+  #Show top 3
+  step_5.head(3)
+  ```
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

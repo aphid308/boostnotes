@@ -1,0 +1,173 @@
+createdAt: "2018-06-18T20:19:14.197Z"
+updatedAt: "2018-06-18T20:24:01.762Z"
+type: "MARKDOWN_NOTE"
+folder: "dc87178bcf7ff750b30f"
+title: "Django Apps and Models"
+content: '''
+  # Django Apps and Models
+  _Basics of creating apps and models, probably deprecated_
+  
+  ### Creating a new Django app
+  
+  _For some semantic clarification: The Django project that we created is the web application we are developing and a Django app is one building block of that application._  
+  
+  We are going to create our first app which will manage albums in our music library.  
+  
+  Activate our virtualenv and change to the directory with our __manage.py__ in it and run.
+  
+  ```
+  workon musiclibrary
+  python manage.py startapp albums
+  ```
+  
+  This will create a new folder in our project folder with this structure:
+  
+  ```
+  |----albums/
+       |----__init__.py
+       |----models.py
+       |----tests.py
+       |----views.py
+  ```
+  
+  The first file we will work with is our __models.py__.
+  We will write a Python class for each model and that class will inherit from __models.Model__.      
+  The models we define in it will roughly map to tables in our database by way of the [Django ORM](https://docs.djangoproject.com/en/1.5/topics/db/).  
+  For our purposes, assume the Django ORM is magic and was written by a rare 2 headed Pegasus.  
+  
+  lets open our __models.py__ and add our first model.
+  
+  ```python
+  from django.db import models
+  
+  # Create your models here
+  
+  class Artist(models.Model):
+      name = models.CharField(max_length=40)
+      website = models.URLField(null=True)
+      mbid = models.CharField(max_length=40)
+      
+      def __unicode__(self):
+          return self.name
+  ```
+  
+  Explanation of fields:  
+    
+  - name - the type of model field declared here is the models.CharField, this is just a field for text basically. The max_length attribute is self explanatory.
+  - website - the models.URLField we use here will validate the entry as a url before saving it to our database. We set null to true in the instance that there is not a website for this entry, it will allow us to save an object without this value
+  - mbid = this is the MusicBrainz id for the artist, we will use this later when we start plugging into third party apis.  
+  You can read up on all the model fields available in Django 1.5 [here](https://docs.djangoproject.com/en/1.5/ref/models/fields/)
+  
+  The unicode method at the end tells Django that for the purposes of a unicode identifier for each object, use the name attribute.
+  
+  Lets look at the next model
+  
+  ```python
+  class Label(models.Model):
+      name = models.CharField(max_length=120)
+      website = models.URLField(null=True)
+      mbid = models.CharField(max_length=40)
+  
+      def __unicode__(self):
+          return self.name
+  ```
+  
+  We have basically the same idea here, no real explanation needed.
+  
+  The last model however introduces a new concept, the models.ForeignKey field.
+  
+  ```python
+  class Album(models.Model):
+      title = models.CharField(max_length=120)
+      artist = models.ForeignKey(Artist)
+      label = models.ForeignKey(Label)
+      mbid = models.CharField(max_length=40)
+  
+      def __unicode__(self):
+          return "%s, by %s" % (self.title, self.artist)
+          
+  ```
+  
+  Here you'll see that the artist and label attributes are assigned the models.ForeignKey field and each field is being passed the corresponding model name.
+  
+  This will create a direct mapping to a specific object in that model. This will make more sense when we see it in action.
+  The unicode return is slightly different as well, we are using string formatting to return the album title and artists name in the format of _"album, by artist"__.
+  
+  Now that our models are created lets add the app to our project.
+  Open up __settings.py__ again and add the app to your "INSTALLED_APPS".
+  
+  ```python
+  INSTALLED_APPS = (
+      'django.contrib.auth',
+      'django.contrib.contenttypes',
+      'django.contrib.sessions',
+      'django.contrib.sites',
+      'django.contrib.messages',
+      'django.contrib.staticfiles',
+      # Uncomment the next line to enable the admin:
+      'django.contrib.admin',
+      # Uncomment the next line to enable admin documentation:
+      'django.contrib.admindocs',
+      'albums', #added here
+  )
+  ```
+  
+  Sync the database.
+  
+  ```
+  python manage.py syncdb
+  ```
+  
+  Start the server.
+  
+  ```
+  python manage.py runserver
+  ```
+  
+  Check it out: [localhost:8000/admin](localhost:8000/admin)
+  
+  So.... our models aren't here.  
+  we didn't register them... here's how we do that.  
+  
+  In our albums directory:
+  
+  ```
+  touch admin.py
+  ```
+  
+  open up this file and register the models
+  
+  ```python
+  from django.contrib import admin # get the admin module
+  from albums.models import Album, Artist, Label #import our models
+  
+  #register each model
+  admin.site.register(Album)
+  admin.site.register(Artist)
+  admin.site.register(Label)
+  ```
+  
+  Now lets check out our site.
+  
+  [localhost:8000/admin](localhost:8000/admin)
+  
+  We should see our models.  
+  
+  Lets add an artist named Actress, website is https://twitter.com/ctress_a, and mbid is 973321d1-9565-4214-a6ef-a77f1890c294.  
+  
+  Now add a label named Werkdiscs, website is http://www.werkdiscs.com/, mbid is f40e7973-6221-4eee-baab-8d4082ec4d78.
+  
+  Now back to that foreign key stuff lets add an album by Actress.  
+  
+  Add an album named Ghettoville, you'll see the artist and label fields are mapped to the objects we have already entered. This can be very handy. The mbid will be 8ad4ff0b-c2e6-4a7d-a240-f8773202dc80
+  
+  Save this album and you will see in the albums list how our custom unicode method changes the way the album is listed in the admin.
+  
+  Add a few more artists, labels and albums. You can look up mbids at the [MusicBrainz database](https://musicbrainz.org/doc/MusicBrainz_Database)
+  
+  The next tutorial will cover interacting with the database with the Django API. We will save new objects and validate data with from the Python interpreter. These skills will enabled us to add functionality to our user facing website and to other applications.
+  
+'''
+tags: []
+isStarred: false
+isTrashed: false

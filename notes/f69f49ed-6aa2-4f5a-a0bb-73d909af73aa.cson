@@ -1,0 +1,79 @@
+createdAt: "2018-06-19T17:04:02.675Z"
+updatedAt: "2018-06-24T22:25:07.430Z"
+type: "MARKDOWN_NOTE"
+folder: "b37fcbd0595412f586b4"
+title: "Lambdas Are Single Expression Functions"
+content: '''
+  # Lambdas Are Single Expression Functions
+  ---
+  The ```lambda``` keyword in Python provides a shortcut for declaring small anonymous functions. Lambda functions behave just like regular functions defined with the ```def``` keyword and can be used wherever a function object could normally be used. 
+  ```python
+  >>> add = lambda x, y: x + y
+  >>> add(5, 3)
+  8
+  ```
+  This is equivalent to the function defined below.
+  ```python
+  >>> def add(x, y):
+  ...     return x + y
+  >>> add(5, 3)
+  8
+  ```
+  Lambda functions are limited to a single expression, they cannot use statements or annotations. They also cannot include a ```return``` statement but all lambda functions have an implicit ```return``` statement in that they will return whatever the single expression evaluates to.
+  ## Lambdas You Can Use
+  When do we use ```lambda``` in our code? Technically any time you are expected to provide a function object you can use a ```lambda``` if the function needed is no more than a single expression. You do not even need to assign a name to them first. Take for example the ```sorted()``` function. This function takes two arguments: an iterable and a key in the form of a function that will be called on each item prior to making comparisons for sorting. If we had a list of tuples and wanted to sort them by their second value we could do something like this:
+  ```python
+  >>> tuples = [(1, 'd'), (2, 'b'), (4, 'a'), (3, 'c')]
+  >>> sorted(tuples, key=lambda x: x[1])
+  [(4, 'a'), (2, 'b'), (3, 'c'), (1, 'd')]
+  ```
+  In this example each the ```lambda``` function is called on each tuple and the value returned is what the tuples are sorted by. The case here is that the function returns the second item in the tuple, so the sorting is done by the letter value as opposed to the numerical one. We can sort on any arbitrary computed value as seen below.
+  ```python
+  >>> sorted(range(-5, 6), key=lambda x: x * x)
+  [0, -1, 1, -2, 2, -3, 3, -4, 4, -5, 5]
+  ```
+  Both of the examples here could be more concisely implemented using the built-ins ```operator.itemgetter()``` and ```abs()``` but the ```lambda``` can provide much more flexible options as it is only limited to what you can do in a single Python expression (which is a lot). Lambdas also work as lexical closures, meaning they can be nested into other named functions and retain state data from those named functions. 
+  ```python
+  >>> def make_adder(n):
+  ...     return lambda x: x + n
+  >>> plus_3 = make_adder(3)
+  >>> plus_5 = make_adder(5)
+  >>> plus_3(4)
+  7
+  >>> plus_5(4)
+  9
+  ```
+  Like in our previous implementation of this closure, the returned function retains the ```n``` value from the parent function and also takes its own argument. The only difference being that we used a ```lambda``` to define the nested function.
+  ## But Maybe You Shouldn't...
+  Lambdas, while useful should be implemented with caution as they can introduce confusing patterns into your code.
+  ```python
+  >>> class Car:
+  ...     rev = lambda self: print('Wroom!')
+  ...     crash = lambda self: print('Boom!')
+  >>> my_car = Car()
+  >>> my_car.crash()
+  'Boom!'
+  ```
+  Similarly, complicated ```map``` and ```filter``` functions should be avoided if a simpler options exists.
+  ```python
+  # Harmful
+  >>> list(filter(lambda x: x % 2 == 0, range(16)))
+  [0, 2, 4, 6, 8, 10, 12, 14]
+  
+  # Better
+  >>> [x for x in range(16) if x % 2 == 0]
+  [0, 2, 4, 6, 8, 10, 12, 14]
+  ```
+  If you find yourself doing anything remotely complex with a ```lambda``` expression, consider defining a standalone function with a name.
+  ### Key Takeaways
+  - Lambda functions are single-expression functions that are not necessarily bound to a name (anonymous).
+  - Lambda functions can't use regular Python statements and always include an implicit ```return``` statement.
+  - Always ask yourselves: _Would using a regular (named) function or a list comprehension offer more clarity?_
+'''
+tags: [
+  "anonymous-function"
+  "lambda"
+  "expression"
+]
+isStarred: false
+isTrashed: false

@@ -1,0 +1,28 @@
+createdAt: "2018-06-19T19:35:38.362Z"
+updatedAt: "2018-06-24T21:35:19.439Z"
+type: "SNIPPET_NOTE"
+folder: "43fabea9a8b7259d668c"
+title: "Ubuntu network share"
+description: "Ubuntu network share"
+snippets: [
+  {
+    name: "sharefolder.sh"
+    mode: "Shell"
+    content: '''
+      net usershare add documents /home/morbius/Documents "morbius documents" everyone:F guest_ok=y
+      
+      chmod 0777 /home/morbius/Documents
+    '''
+  }
+]
+tags: [
+  "share"
+  "fileshare"
+  "smb"
+  "network-share"
+  "ubuntu"
+  "linux"
+  "config"
+]
+isStarred: false
+isTrashed: false

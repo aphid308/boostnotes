@@ -1,0 +1,46 @@
+createdAt: "2018-06-19T17:13:19.573Z"
+updatedAt: "2018-07-26T19:37:25.154Z"
+type: "MARKDOWN_NOTE"
+folder: "b37fcbd0595412f586b4"
+title: "Function Argument Unpacking"
+content: '''
+  ## Function Argument Unpacking
+  ---
+  It is also possible to unpack items from an iterable to a function using the `*` and `**` syntax. For example we can use the function here.
+  ```python
+  def print_vector(x, y, z):
+      print('<%s, %s, %s'> % (x, y, z))
+  ```
+  We could use a function like this to pretty-print the dimensions of a 3 dimensional vector.
+  ```python
+  >>> print_vector(0, 1, 0)
+  <0, 1, 0>
+  ```
+  This works if the data structure that is passed to our function is three indenpendent values or variables. If we are passed an iterable or collection we might run into trouble though. We would have to manually retrieve the values from the iterable as we pass them to our function. Take for example if our values were in an array or tuple.
+  ```python
+  >>> tuple_vec = (1, 0, 1)
+  >>> list_vec = [1, 0, 1]
+  >>> print_vector(tuple_vec[0],
+                              tuple_vec[1],
+                              tuple_vec[2])
+  >>> <1, 0, 1>                            
+  ```
+  Using a normal function call with the individual values accessed from the iterable seems very cumbersome. What we could use is a way to "explode" the values from the iterable. We can accomplish this with argument unpacking. 
+  
+  ```python
+  >>> print_vector(*tuple_vec)
+  <0, 1, 0>
+  >>> print_vector(**list_vec)
+  <0, 1, 0>
+  ```
+  Putting the `*` before the iterable object when passing it to the function unpacks each item from the iterable as a separate positional arguments. This technique works on any iterable object, even generators. In the case of a generator it will consume all items that could be yielded by the generator and passes them as positional arguments. 
+  ```python
+  >>> genexpr = (x * x for x in range ( 3 )) 
+  >>> print_vector( * genexpr)
+  ```
+'''
+tags: [
+  "stub"
+]
+isStarred: false
+isTrashed: false

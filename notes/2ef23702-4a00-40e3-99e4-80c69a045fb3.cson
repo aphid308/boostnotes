@@ -1,0 +1,21 @@
+createdAt: "2019-02-22T18:01:27.096Z"
+updatedAt: "2019-02-22T18:03:07.720Z"
+type: "MARKDOWN_NOTE"
+folder: "b575d372f71ac12888ba"
+title: "7. Workflow modifications"
+tags: []
+content: '''
+  # 7. Workflow modifications
+  
+  _Set a git alias to combine "add all files" and commit_
+  ```bash
+  git config --global alias.add-commit '!git add -A && git commit -m'
+  ```
+  _with this alias set you can add files and commit with one line_
+  ```bash
+  git add-commit "commit message"
+  ```
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

@@ -1,0 +1,32 @@
+createdAt: "2019-02-20T02:39:37.239Z"
+updatedAt: "2019-02-21T13:55:01.168Z"
+type: "MARKDOWN_NOTE"
+folder: "7fa5be337c9127eb71b8"
+title: "Disable Fortclient on Mac OSX Startup"
+tags: [
+  "forticlient"
+  "vpn"
+  "mac"
+  "osx"
+  "startup"
+]
+content: '''
+  # Disable Fortclient on Mac OSX Startup
+  
+  Edit /Library/LaunchAgents/com.fortinet.forticlient.credential_store.plist Change RunAtLoad key from true to false, and add false parameter below KeepAlive key... 
+  ```html
+  <key>RunAtLoad</key> 
+    <false/> 
+  <key>KeepAlive</key> 
+    <false/>
+  ```
+  
+  /Library/LaunchAgents/com.fortinet.forticlient.fct_launcher.plist Change RunAtLoad key from true to false... 
+  ```html
+  <key>RunAtLoad</key> 
+    <false/>
+  ```
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

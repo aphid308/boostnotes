@@ -1,0 +1,19 @@
+createdAt: "2019-02-22T03:03:20.004Z"
+updatedAt: "2019-02-22T03:06:43.008Z"
+type: "MARKDOWN_NOTE"
+folder: "b575d372f71ac12888ba"
+title: "2. Install other libraries and packages"
+tags: []
+content: '''
+  # 2. Install other libraries and packages
+  ```bash
+  sudo apt-get install -y tmux virtualenv \\
+                          virtualenvwrapper python3-pip \\
+                          libffi-dev libssl-dev \\
+                          libjpeg-dev libpq-dev \\
+                          postgresql
+  ```
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

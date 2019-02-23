@@ -1,0 +1,176 @@
+createdAt: "2018-06-19T17:03:13.267Z"
+updatedAt: "2018-06-19T17:05:26.768Z"
+type: "MARKDOWN_NOTE"
+folder: "b37fcbd0595412f586b4"
+title: "Functions as First Class Objects"
+content: '''
+  # Functions as First Class Objects
+  ---
+  ## Functions are Objects
+  All data in Python is represented by objects or the relationships between objects. Strings, Lists, Dictionaries, Functions etc are all objects. You can assign a function to a variable or any number of variables.
+  ```python
+  >>> def yell(text):
+  ...     return text.upper() + '!'
+  >>> yell('hello')
+  'HELLO!'
+  >>> bark = yell
+  >>> bark('woof')
+  'WOOF!'
+  >>> del yell
+  >>> yell('hello?')
+  NameError: "name 'yell' is not defined"
+  >>> bark('hey')
+  'HEY!'
+  ```
+  Demonstrated here is the fact that function objects and their names are two separate and distinct things. We can assign our function object to both __yell__ and __bark__ and call the function by either name. We can delete one of the names but this does not delete the object itself, only the reference to it. This is why we are able to call the function by the name __bark__. Additionally Python assigns a string identifier to every function object at the time of its creation for debugging purposes. You can access this identifier with the __\\_\\_name\\_\\___ 
+  ```python
+  >>> bark.__name__
+  'yell'
+  ```
+  You will notice that the function's string identifier is the same as the orginal name it was linked to. This has no affect on how you can call the function. You can still only call it from a name that the function object is assigned to. The __\\_\\_name\\_\\___ identifier is only for debugging purposes. The identifier represents the actual function object while the variable that points to it represents a way to access the function.
+  
+  ## Functions Can be Stored in Data Structures
+  Since functions are first-class objects, they can be stored in data structures just like any other objects. In the example below we store three functions in a list object.
+  ```python
+  >>> funcs = [bark, str.lower, str.capitalize]
+  >>> funcs
+  [ < function yell at 0x10ff96510 > ,
+    < method 'lower' of 'str' objects > , 
+    < method 'capitalize' of 'str' objects > ]
+   ```
+   And we can access/call these functions in the same way as iterating over a list of any other object.
+   ```python
+   >>> for _ in funcs:
+   ...    print(f, f('hey there'))
+   < function yell at 0x10ff96510 > 'HEY THERE!' 
+   < method 'lower' of 'str' objects > 'hey there' 
+   < method 'capitalize' of 'str' objects > 'Hey there'
+   ```
+   To call a function in this list you don't even need to assign it to a variable. You can access the 'disembodied' function through its list index.
+   ```python
+   >>> funcs[0]('heyho')
+   'HEYHO!'
+   ```
+   ## Functions Can be Passed to Other Functions
+   Because (again) functions are just objects, we can write functions that take other functions as arguments. Take to following example that formats a greeting based on the function that is passed to it.
+   ```python
+   >>> def greet(func):
+   ...    greeting = func('Hi, I am a Python program')
+   ...    print(greeting)
+   >>> greet(bark)
+   'HI, I AM A PYTHON PROGRAM!'
+   ```
+   In the example you can control the resulting greeting by passing in different functions. Let's write a different function that changes how the __greet()__ function responds.
+   ```python
+   >>> def whisper(text):
+   ...    return text.lower() + '...'
+   >>> greet(whisper)
+   'hi, i am a python program...'
+   ```
+   The ability to pass functions as arguments is very powerful. It allows us to abstract away 'behaviors' and pass them around between compatible functions. One function that does something and a function passed to it defining _how_ it does something. Functions that can accept other functions as arguments are called __Higher Order Functions__. An example of __Higher Order Functions__ can be seen in the, built-in, __map__ function. The __map__ function takes two arguments, a function and an iterable. It then calls the function on each item in the iterable, yielding (it is generator) the results as it goes along. Take the example below where we pass our __bark__ functions to all items in a list. _Note: The whole thing is wrapped in list() because map() is a generator and we would not be able to see all items returned this way without converting it to a list_
+   ```python
+   >>> list(map(bark, ['hello', 'hey', 'hi']))
+   ['HELLO!', 'HEY!', 'HI!']
+   ```
+   ## Functions Can be Nested
+   Python allows us to define functions even within other functions. These are called __nested functions__ or __inner functions__. Here's an example.
+   ```python
+   >>> def speak(text):
+   ...    def whisper(t):
+   ...        return t.lower() + '...'
+   ...    return whisper(text)
+   >>> speak('Hello, World')
+   'hello, world...'
+   ```
+   So here we have a function speak() and everytime speak() is called it defines another function, whisper() and immediately calls it. The thing to note here is that whisper() does not exist outside of the context of speak() being called.
+   ```python
+   >>> whisper('Yo')
+   NameError: "name 'whisper' is not defined"
+   >>> speak.whisper
+   NameError: "'function' object has no attribute 'whisper'"
+   ```
+   As you can see the whisper() function does not exist outside of the speak() context and cannot be access directly. If we really want to access that __inner function__, fuctions _are_ objects and you can _return_ the inner function to the caller of the the parent function. As an example, below is a function that returns two __inner functions__. Depending on the argument passed to the parent function, it selects and returns one of the __inner functions__ to the caller.
+   ```python
+   >>> def get_speak_func(volume):
+   ...    def whisper(text):
+   ...        return text.lower() + '...'
+   ...    def yell(text):
+   ...        return text.upper() + '!'
+   ...    if volume > 0.5:
+   ...        return yell
+   ...    else:
+   ...        return whisper
+   ```
+   Notice that the parent function does not call either of the __inner functions__ it simply selects the appropriate function based on the volume argument and returns that function to the caller.
+   ```python
+   >>> get_speak_func(0.3)
+   <function get_speak_func.<locals>.whisper at 0x10ae18>
+   >>> get_speak_func(0.7)
+   <function get_speak_func.<locals>.yell at 0x1008c8>
+   ```
+   Of course you could then call the returned function either directly or by assigning it to a variable name.
+   ```python
+   >>> speak_func = get_speak_func(0.7)
+   >>> speak_func('Hello')
+   'HELLO!'
+   ```
+   So as we have seen functions can not only accept behaviors through arguments but return behaviors as well.
+   ## Functions Can Capture Local State
+   We have seen that functions can take functions as arguments and return them. In addition to returning other functions, the functions that are returned can retain some of the parent function state to the caller. Here is a re write of the get_speak function to illustrate this.
+   ```python
+   >>> def get_speak_func(text, volume):
+   ...    def whisper():
+   ...        return text.lower() + '...'
+   ...    def yell():
+   ...        return text.upper() + '!'
+   ...    if volume > 0.5:
+   ...        return yell
+   ...    else:
+   ...        return whisper
+   >>> get_speak_func('Hello, World', 0.7)()
+   'HELLO, WORLD!'
+   ```
+   The __inner functions__ here whisper() and yell(), no longer take an argument but rather they capture the argument from the parent function and retain that after they have been returned to the caller. Functions that capture and retain values from their parent function after the context of the function has been left are called __lexical closures__ or just __closures__. A __closure__ remembers the values from its enclosing lexical scope even when the program flow is no longer in that scope. Following our logic of functions being able to return behaviors, this means that functions can also pre-configure those behaviors. Here is another example that illustrates this idea.
+   ```python
+   >>> def make_adder(n):
+   ...    def add(x):
+   ...        return x + n
+   ...    return add
+   >>> plus_3 = make_adder(3)
+   >>> plus_5 = make_adder(5)
+   >>> plus_3(4)
+   7
+   >>> plus_5(4)
+   9
+   ```
+   In this example the function, __make_adder()__ serves as a factory to create and configure "adder" functions. The "adder" functions can still access the "n" argument of the __make_adder()__ function (the enclosing scope).
+   ## Objects Can Behave Like Functions
+   While all functions are objects the reverse is not true. Objects are not always functions but they can be made callable, which allows us to treat them like functions in many cases. If an object is callable we can use the round parentheses function call syntax on them and even pass in arguments. This is made possible by the __\\_\\_call\\_\\___ dunder method. 
+   ```python
+  >>> class Adder:
+  ...     def __init__(self, n):
+  ...         self.n = n
+  ...     def __call__(self, x):
+  ...         return self.n + x
+  >>> plus_3 = Adder(3)
+  >>> plus_3(4)
+  7
+  ```
+  Calling an object will attempt to execute the code in the __\\_\\_call\\_\\___ method. Not all objects will be callable so Python provides a built-in function that checks whether an object is callable or not.
+  ```python
+  >>> callable(plus_3)
+  True
+  >>> callable(yell)
+  True
+  >>> callable('hello')
+  False
+  ```
+  ### Key Takeaways
+  - Everything in Python is an object, including functions. You can assign them to variables store them in data structures, and pass them to and from other functions (first class functions).
+  - First class functions allow you to abstract away and pass around behavior in your programs.
+  - Functions can be nested and they can capture and carry some of the parent functions's state with them. Functions that do this are called __closures__ or __lexical closures__.
+  - Objects can be made callable, in many cases this allows you to treat them like functions.
+'''
+tags: []
+isStarred: false
+isTrashed: false

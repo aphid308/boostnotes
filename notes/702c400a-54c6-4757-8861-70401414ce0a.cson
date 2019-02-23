@@ -1,0 +1,132 @@
+createdAt: "2018-06-19T17:02:15.440Z"
+updatedAt: "2018-06-19T17:05:34.487Z"
+type: "MARKDOWN_NOTE"
+folder: "b37fcbd0595412f586b4"
+title: "String Formatting"
+content: '''
+  # String Formatting
+  ---
+  The four types of Python string formatting can be demonstrated by taking the 2 constants declared below-
+  ```python
+  errno = 50159747054
+  name = "Bob"
+  ```
+  ...and returning the desired output:  
+  _'Hey Bob, there is a 0xbadc0ffee error!'_
+  
+  ## Old Style String Formatting
+  String objects have a built in operation that can be accessed with the __"%"__ operator. This operator lets you do simple positional formatting very easily.
+  ```python
+  >>> 'Hello, %s' % name
+  'Hello, Bob'
+  ```
+  We use the __"%s"__ format specifier to tell Python where to substitute the value of the contant, name. 
+  This style of string formatting also includes other format specifiers that allow you to control how the string is interpreted and output. In the example below we will use the __"%x"__ format specifier to convert an integer value into a string representation of the integer as a hexadecimal number.
+  ```python
+  >>> '%x' % errno
+  'badc0ffee'
+  ```
+  If we want to make multiple substitutions the syntax changes slightly. Since the __"%"__ only takes 1 argument we have to wrap our argument in a tuple that will be unpacked to the format specifiers in the string. They are unpacked in order.
+  ```python
+  >>> 'Hey %s, there is a 0x%x error!' % (name, errno)
+  'Hey Bob, there is a 0xbadc0ffee error!'
+  ```
+  We can also make our format strings easier to maintain and modify by passing the __"%"__ a dictionary instead of a tuple. In this way we can refer to our substitutions by name.
+  ```python
+  >>> 'Hey %(name)s, there is a 0x%(errno)x error!' % {"name": name, "errno": errno}
+  'Hey Bob, there is a 0xbadc0ffee error!'
+  ```
+  In addition to maintainability and ease of modification, we don't have to worry about the order in which the variables are declared as they are mapped by name. This can come in handy when dealing with data coming from external APIs or otherwise not curated by yourself.
+  
+  ## New Style String Formatting
+  Python3 introduced a new string formatting method and it was later backported to Python2.7. The new string formatting technique gets rid of the __"%"__ operator and it's special syntax, aiming to make string formatting more regular and adherent to general Pythonic coding principles. The string object now has a built in method called __format()__ that can handle positional formatting as well as mapped substitution.
+  ```python
+  >>> 'Hello {}'.format(name)
+  'Hello Bob'
+  ```
+  Instead of the __"%"__" operator in the string for substitution we now use curly braces and call the format method using dot notation as is the case with other Python built-ins. With the format method we can also format our substitutions by passing key/value pairs to the method and substituting by name.
+  ```python
+  >>> 'Hello {name}, there is a 0x{errno:x} error!'.format(name=name, errno=errno)
+  'Hey Bob, there is a 0xbadc0ffee error!'
+  ```
+  You'll notice that we can still use our format specifier, __"x"__ (to convert to hexadecimal) with a slightly different syntax.
+  We can also format positionally using the index of the arguments position.
+  ```python
+  >>> 'Hello {0}, there is a 0x{1:x} error!'.format(name, errno)
+  'Hey Bob, there is a 0xbadc0ffee error!'
+  ```
+  The variables are unpacked to the formatter based on their position in the list of arguments.
+  
+  ## Literal String Interpolation
+  Python3.6 adds a new string formatting technique called __Formatted String Literals__ (or f-strings). F-Strings let you use embedded Python expressions inside string constants. The syntax for this technique is simply prefixing the string with __'f'__.
+  ```python
+  >>> f'Hello, {name}!'
+  'Hello, Bob!'
+  ```
+  In this example the 'name' constant is evaluated directly in the string itself. Additionally you can embed arbitrary Python expressions that will be evaluated and substituted in line. This includes arithmetic or even function calls or any other Python code that returns a value.
+  ```python
+  >>> a = 5
+  >>> b = 10
+  >>> f'Five plus ten  is {a + b} and not {2 * (a + b)}.'
+  'Five plus ten is 15 and not 30.'
+  ```
+  The arithmetic functions are evaluated in line, converted to strings and substituted. Below is an example of using f-strings within a function.
+  ```python
+  >>> def greet(name, question):
+  ...     return f"Hello, {name}! How's it {question}?"
+  ...
+  >>> greet("Bob", "going")
+  "Hello, Bob! How's it going?"
+  ```
+  F-strings also support format specifiers in a similar way to other string formatting techniques.
+  ```python
+  >>> f"Hey {name}, there's a 0x{errno:#x} error!"
+  "Hey Bob, there's a 0xbadc0ffee error!"
+  ```
+  We are able to convert our integer into a hexadecimal string with the __"#x"__ format specifier.
+  
+  ## Template Strings
+  
+  Template strings are a bit simpler and less powerful than other methods but in some cases are the right tool for the job. 
+  ```python
+  >>> from string import Template
+  >>> t = Template('Hey, $name!')
+  >>> t.substitute(name=name)
+  'Hey, Bob!'
+  ```
+  Template strings are not a core language feature they are supplied by a module in the __Python Standard Library__. For this reason we have to import the __Template__ module from string. Another difference/limitation is the lack of format specifiers. In our example that means that we are not able to transform our integer into a hexadecimal string using the the formatting language and must perform the transform ourselves.
+  ```python
+  >>> templ_string = 'Hey $name, there is a $error error!'
+  >>> Template(templ_string).substitute(name=name, error=hex(errno))
+  'Hey Bob, there is a 0xbadc0ffee error!'
+  ```
+  While this same objective can be achieved in a much more succinct way with other formatting options, there are use cases for this type of simple formatting. From a security standpoint you may not want users to be able to input text that is will have arbitrary code evaluated inside it. Take the example below.
+  ```python
+  >>> SECRET = 'this-is-a-secret'
+  >>> class Error:
+  ...     def __init__(self):
+  ...         pass
+  >>> err = Error()
+  >>> user_input = '{error.__init__.__globals__[SECRET]}'
+  >>> user_input.format(error=err)
+  ```
+  In this case a user could input text which is evaluated to expose internal values which may be sensitive. Template strings allow us to close this attack vector and prevent users from executing arbitraty code via a string input.
+  ```python
+  >>> user_input = '${error.__init__.__globals__[SECRET]}'
+  >>> Template(user_input).substitute(error=err)
+  ValueError:
+  "Invalid placeholder in string: line 1, col 1"
+  ```
+  
+  ## Choosing a Method
+  It may be confusing to choose what string formatting method to use. __Dan Bader__ provides us with a rule of thumb:  
+  _"If your format strings are user-supplied, use Template Strings to avoid security issues. Otherwise, use Literal String Interpolation if you are on Python 3.6+, and "New Style" String Formatting if you're not"_
+  
+  ### Key Takeaways
+  - Perhaps surprisingly there's more than one way to handle string formatting in Python.
+  - Each method has its individual pros and cons. Your use case will influence which method you should use.
+  - If you're having trouble deciding which string formatting method to use, try __Dan Bader's String Formatting Rule of Thumb__.
+'''
+tags: []
+isStarred: false
+isTrashed: false

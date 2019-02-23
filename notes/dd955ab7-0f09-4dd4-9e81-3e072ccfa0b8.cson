@@ -1,0 +1,30 @@
+createdAt: "2018-06-19T17:22:23.650Z"
+updatedAt: "2018-06-24T22:22:55.999Z"
+type: "SNIPPET_NOTE"
+folder: "87bdde29fbe492e66a59"
+title: "Active Directory account from SID"
+description: "Active Directory account from SID"
+snippets: [
+  {
+    name: "user_from_sid.ps1"
+    mode: "PowerShell"
+    content: '''
+      $objSID = New-Object System.Security.Principal.SecurityIdentifier `
+          ("S-1-5-21-1454471165-1004335555-1606985555-5555")
+      $objUser = $objSID.Translate( [System.Security.Principal.NTAccount])
+      $objUser.Value
+      
+      
+    '''
+  }
+]
+tags: [
+  "active-directory"
+  "SID"
+  "account"
+  "user"
+  "user-id"
+  "windows"
+]
+isStarred: false
+isTrashed: false

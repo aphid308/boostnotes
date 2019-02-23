@@ -1,0 +1,80 @@
+createdAt: "2018-06-19T19:37:07.461Z"
+updatedAt: "2018-06-20T14:05:10.253Z"
+type: "MARKDOWN_NOTE"
+folder: "7fa5be337c9127eb71b8"
+title: "Keybase proof"
+content: '''
+  ### Keybase proof
+  
+  I hereby claim:
+  
+    * I am aphid308 on github.
+    * I am patrickjury (https://keybase.io/patrickjury) on keybase.
+    * I have a public key ASBb9gfNO2HDXOin1COMCnVnKqWHKkBZqaoWhxJGHTL4Ego
+  
+  To claim this, I am signing this object:
+  
+  ```json
+  {
+      &quot;body&quot;: {
+          &quot;key&quot;: {
+              &quot;eldest_kid&quot;: &quot;01205bf607cd3b61c35ce8a7d4238c0a75672aa5872a4059a9aa168712461d32f8120a&quot;,
+              &quot;host&quot;: &quot;keybase.io&quot;,
+              &quot;kid&quot;: &quot;01205bf607cd3b61c35ce8a7d4238c0a75672aa5872a4059a9aa168712461d32f8120a&quot;,
+              &quot;uid&quot;: &quot;f5333f7be789374963c620966ae57319&quot;,
+              &quot;username&quot;: &quot;patrickjury&quot;
+          },
+          &quot;merkle_root&quot;: {
+              &quot;ctime&quot;: 1500085016,
+              &quot;hash&quot;: &quot;b951564ab961537750a739b983910e22f0960221311377e3ddb9a486108e511ffbfe137f1aecb1e361fc6a75e706c3a4ffdb46e4eab1819c47f1126ddc7d6ffc&quot;,
+              &quot;hash_meta&quot;: &quot;c1546a87358d879d12b1eb79fdc33ecb6ea40fbc3de1bb3b11d3dd4465ee1a6f&quot;,
+              &quot;seqno&quot;: 1233963
+          },
+          &quot;service&quot;: {
+              &quot;name&quot;: &quot;github&quot;,
+              &quot;username&quot;: &quot;aphid308&quot;
+          },
+          &quot;type&quot;: &quot;web_service_binding&quot;,
+          &quot;version&quot;: 1
+      },
+      &quot;client&quot;: {
+          &quot;name&quot;: &quot;keybase.io go client&quot;,
+          &quot;version&quot;: &quot;1.0.24&quot;
+      },
+      &quot;ctime&quot;: 1500085039,
+      &quot;expire_in&quot;: 504576000,
+      &quot;prev&quot;: &quot;ec6841b0d8a4299c3cd14e306035b3e91a016150473b79bcea566d30162d8c3b&quot;,
+      &quot;seqno&quot;: 11,
+      &quot;tag&quot;: &quot;signature&quot;
+  }
+  ```
+  
+  with the key [ASBb9gfNO2HDXOin1COMCnVnKqWHKkBZqaoWhxJGHTL4Ego](https://keybase.io/patrickjury), yielding the signature:
+  
+  ```
+  hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgW/YHzTthw1zop9QjjAp1ZyqlhypAWamqFocSRh0y+BIKp3BheWxvYWTFA0B7ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTIwNWJmNjA3Y2QzYjYxYzM1Y2U4YTdkNDIzOGMwYTc1NjcyYWE1ODcyYTQwNTlhOWFhMTY4NzEyNDYxZDMyZjgxMjBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwNWJmNjA3Y2QzYjYxYzM1Y2U4YTdkNDIzOGMwYTc1NjcyYWE1ODcyYTQwNTlhOWFhMTY4NzEyNDYxZDMyZjgxMjBhIiwidWlkIjoiZjUzMzNmN2JlNzg5Mzc0OTYzYzYyMDk2NmFlNTczMTkiLCJ1c2VybmFtZSI6InBhdHJpY2tqdXJ5In0sIm1lcmtsZV9yb290Ijp7ImN0aW1lIjoxNTAwMDg1MDE2LCJoYXNoIjoiYjk1MTU2NGFiOTYxNTM3NzUwYTczOWI5ODM5MTBlMjJmMDk2MDIyMTMxMTM3N2UzZGRiOWE0ODYxMDhlNTExZmZiZmUxMzdmMWFlY2IxZTM2MWZjNmE3NWU3MDZjM2E0ZmZkYjQ2ZTRlYWIxODE5YzQ3ZjExMjZkZGM3ZDZmZmMiLCJoYXNoX21ldGEiOiJjMTU0NmE4NzM1OGQ4NzlkMTJiMWViNzlmZGMzM2VjYjZlYTQwZmJjM2RlMWJiM2IxMWQzZGQ0NDY1ZWUxYTZmIiwic2Vxbm8iOjEyMzM5NjN9LCJzZXJ2aWNlIjp7Im5hbWUiOiJnaXRodWIiLCJ1c2VybmFtZSI6ImFwaGlkMzA4In0sInR5cGUiOiJ3ZWJfc2VydmljZV9iaW5kaW5nIiwidmVyc2lvbiI6MX0sImNsaWVudCI6eyJuYW1lIjoia2V5YmFzZS5pbyBnbyBjbGllbnQiLCJ2ZXJzaW9uIjoiMS4wLjI0In0sImN0aW1lIjoxNTAwMDg1MDM5LCJleHBpcmVfaW4iOjUwNDU3NjAwMCwicHJldiI6ImVjNjg0MWIwZDhhNDI5OWMzY2QxNGUzMDYwMzViM2U5MWEwMTYxNTA0NzNiNzliY2VhNTY2ZDMwMTYyZDhjM2IiLCJzZXFubyI6MTEsInRhZyI6InNpZ25hdHVyZSJ9o3NpZ8RA5hKzZjUie4jxC6l2tG7N8U3WKSXQ+3cEhwciMvFxvjxJkhl/5/PKWW5p2gWLNrYqptOhDRPhdyKSwMbOUf/4BKhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIDz5af8pbWnzZK7NAkeX4RI5GxkpyF7DirWXSKFCef2Go3RhZ80CAqd2ZXJzaW9uAQ==
+  
+  ```
+  
+  And finally, I am proving ownership of the github account by posting this as a gist.
+  
+  ### My publicly-auditable identity:
+  
+  https://keybase.io/patrickjury
+  
+  ### From the command line:
+  
+  Consider the [keybase command line program](https://keybase.io/download).
+  
+  ```bash
+  # look me up
+  keybase id patrickjury
+  ```
+'''
+tags: [
+  "keybase"
+  "encryption"
+  "pgp"
+]
+isStarred: false
+isTrashed: false

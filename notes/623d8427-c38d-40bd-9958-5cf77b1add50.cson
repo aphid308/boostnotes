@@ -1,0 +1,192 @@
+createdAt: "2018-06-19T17:11:37.139Z"
+updatedAt: "2018-06-24T22:24:48.401Z"
+type: "MARKDOWN_NOTE"
+folder: "b37fcbd0595412f586b4"
+title: "The Power of Decorators"
+content: '''
+  # The Power of Decorators
+  ---
+  Python decorators allow us to extend or modify the functionality of a callable (functions, methods, and classes) _without_ permanently modifying the callable itself. Any generic functionality that you could append to the existing capabilities of a callable is a good use case for decoration. This includes the following:
+  - logging
+  - enforcing access control and authentication
+  - instrumentation and timing functions
+  - rate-limiting
+  - caching, and more  
+  Why should we implement decorators in our code? The above description might sound unnecessarily complicated or abstract. Consider the following. Python decorators are one of the more difficult concepts to grasp but also a milestone for any serious Python programmer. Before diving in lets remember the two key points about functions in Python.  
+  
+  - Python functions are first class objects, they can be assigned to variables, passed to and returned from other functions.
+  - Functions can be defined inside other functions. Child functions can capture the parent functions local state (lexical closures).
+  
+  ## Python Decorator Basics
+  
+  Decorators allow us to define reusable building blocks that can change or extend the functionality of other functions. They allow us to wrap a function, defining code to be executed before and after the function and they let us do this without permanently altering the wrapped function. An undecorated instance of the function will still behave as normal. In basic terms a decorator is a callable that takes a callable as input and returns another callable. The following function has that property and could be considered one of the simplest implementations of a decorator.
+  ```python
+  >>> def null_decorator(func):
+  ...     return func
+  ```
+  As you can see the function is callable, it takes another callable as input and returns the same input callable. Lets decorate a function with it.
+  ```python
+  >>> def greet():
+  ...     return "Hello!"
+  >>> greet = null_decorator(greet)
+  >>> greet()
+  'Hello!'
+  ```
+  In this example we defing a greet function and immediately decorated it with ```null_decorator()```. This doesn't appear very useful yet, but we defined this decorator specifically to do nothing. Let look at how the syntax for decorators works.
+  ```python
+  >>> @null_decorator
+  >>> def greet():
+  ...     return "Hello!"
+  >>> greet()
+  'Hello!'
+  ```
+  Putting ```@null_decorator``` is the same as defining the function first and then running it through the decorator. The ```@``` syntax is just syntactical sugar and is a shorthand for this pattern. This makes it difficult to access our undecorated function. For this reason, in some cases it may be preferable to.
+  
+  ## Decorators Can Modify Behavior
+  
+  Now that we are a little more familiar with the syntax structure for defining and using decorators lets's write one that actually does something. Below is an example of a decorator that converts the result of a decorated function to uppercase letters.
+  ```python
+  def uppercase(func):
+      def wrapper():
+          original_result = func()
+          modified_result = original_result.upper()
+          return modified_result
+      return wrapper
+  ```
+  Instead of just returning the input function like the original decorator did, this uppercase decorator defines a new function on the fly (a closure) and used it to wrap the input function in order to modify its behavior at call time. The wrapper closure has access to the undecorated input function and it is free to execute the additional code before and after calling the input function. Technically it doesn't even need to call the input function at all. Note how, up until now, the decorated function has never been executed. Actually calling the input function at this point wouldn’t make any sense—you’ll want the decorator to be able to modify the behavior of its input function when it eventually gets called. Now what happens when we decorate our original ```greet()``` function with the ```uppercase()``` decorator?
+  ```python
+  >>> @uppercase
+  >>> def greet():
+          return 'Hello!'
+  >>> greet()
+  'HELLO!'
+  ```
+  Unlike our ```null_decorator()``` our ```uppercase()``` decorator returns a _different function object_ when it decorates a function.
+  ```python
+  >>> greet
+  <function greet at 0x10e9f0950>
+  >>> null_decorator(greet)
+  <function greet at 0x10e9f0950>
+  >>> uppercase(greet)
+  <function uppercase.<locals>.wrapper at 0x76da02f28>
+  ```
+  We can see above that the ```uppercase()``` decorator returns a completely new function object to the caller. In fact it _has_ to do that in order to modify the behavior of the desired funtion when it gets called. The ```uppercase()``` decorator is a function itself. The only way to change the "future behavior" of a function object is to wrap the input in a closure. This is why ```uppercase()``` defines an inner function that is returned to the caller to be called at another time, run the original input function and modify its result. Decorators modify the the behavior of a callable through a wrapper closure so that the original function does not need to be modified, its behavior only changes when it is decorated. This lets you tack on reusable building blocks such as logging and other instrumentation to existing functions and classes. This makes decorators a powerful feature of Python, so much so that you will see them in many applications and even in the standard library.
+  
+  ## Applying Multiple Decorators to a Function
+  
+  Not surprisingly you can apply more than one decorator to a function. This is part of what makes them so useful as building blocks in modular program design. Below is an example of 2 decorators which wrap a text in html.  
+  ```python
+  def strong(func):
+      def wrapper():
+          return '<strong>' + func() + '</strong>'
+      return wrapper
+      
+  def emphasis(func):
+      def wrapper():
+          return '<em>' + func() + '</em>'
+      return wrapper
+  ```
+  Now let's take these 2 decorators and apply them to our greet function.
+  ```python
+  @strong
+  @emphasis
+  def greet():
+      return 'Hello!'
+  ```
+  How will these decorators be applied? Which will take precedence?
+  ```python
+  >>> greet()
+  '<strong><em>Hello!</em></strong>'
+  ```
+  This demonstrates that the decorators were applied bottom to top. First the input was wrapped by the emphasis function and then the strong function. We can call this behavior '_decorator stacking_' to remember how decorators will be applied in multiple decoration scenarios. If we applied these decorators without the ```@decorator``` functionality we can see more clearly how it works.
+  ```python
+  decorated_greet = strong(emphasis(greet))
+  ```
+  As we can see the the emphasis is applied first. This also means that deep levels of decorator stacking can eventually impact performance as you will be adding even deeper levels of nested function calling.  
+  
+  ## Decorating Functions that Accept Arguments
+  
+  Up until now we have been decorating a _nullary_ function that takes no arguments. We have not had to deal with forwarding arguments to the input function. This is where Python's ```*args``` and ```**kwargs``` feature comes in handy for accepting a variable number of arguments.
+  ```python
+  def proxy(func):
+      def wrapper(*args, **kwargs):
+          return func(*args, **kwargs)
+      return wrapper
+  ```
+  The two notable things going on with this function decorator:
+  - It is using the ```*``` and ```**``` operators in the wrapper closure function to collect all positional arguments and store them in variables (```args``` and ```kwargs```).
+  - The wrapper closure forwards the collected arguments to the input function using argument unpacking.
+  We can expand our example to demonstrate a more useful operation. In the following example we will write a trace decorator that logs function arguments and results during runtime.
+  ```python
+  def trace(func):
+      def wrapper(*args, **kwargs):
+          print(f'TRACE: calling {func.__name__}() '
+                f'with {args}, {kwargs}')
+          original_result = func(*args, **kwargs)
+          
+          print(f'TRACE: {func.__name__}() '
+                f'returned {original_result!r}')
+          return orginal_result
+      return wrapper
+  ```
+  Decorating a function with ```trace``` and then calling it will print the arguments passed to the function as well as the output of the function. Speaking of debugging, there are some things to keep in mind when debugging decorators.  
+  
+  ## How to Write Debuggable Decorators  
+  
+  When we use a closure or decorator what we are basically doing is replacing one function with another. This is very useful but also presents us with a problem. One downside to this is that it hides some of the metadata attached to the original function. For example the original function name, doc string and parameter list are hidden by the enclosure.
+  ```python
+  def greet():
+      """Return friendly greeting"""
+      return 'Hello!'
+  
+  decorated_greet = uppercase(greet)
+  ```
+  If we try to access this function's meta data we will only see the metadata of the wrapper.
+  ```python
+  >>> greet.__name__
+  'greet'
+  >>> greet.__doc__
+  'Return a friendly greeting.'
+  >>> decorated_greet.__name__
+  'wrapper'
+  >>> decorated_greet.__doc__
+  None
+  ```
+  This can make for awkward debugging and blind spots in your program flow. Thankfully there is a quick fix for this. Python provides a module called ```functools.wraps``` that can copy over the meta data from the original function to the decorator function.
+  ```python
+  import functools
+  
+  def uppercase(func):
+      @functools.wraps(func):
+      def wrapper():
+          return func().upper()
+      return wrapper
+  ```
+  Applying ```functools.wraps``` to the to the wrapper closure copies over the orginal function data.
+  ```python
+  @uppercase
+  def greet():
+      """Return a friendly greeting."""
+      return 'Hello!'
+  >>> greet.__name__
+  'greet'
+  >>> greet.__doc__
+  'Return a friendly greeting.'
+  ```
+  A best practice (and easy fix to a problem) is to apply ```functools.wraps``` to all wrapper closures in your decorators. This will save you and others from many debugging headaches.
+  
+  ### Key Takeaways
+  - Decorators define reusable building blocks you can apply to a callable to modify its behavior without permanently modifying the callable itself.
+  - The @ syntax is just a shorthand for calling the decorator on an input function. Multiple decorators on a single function are applied bottom to top ( decorator stacking ).
+  - As a debugging best practice, use the functools.wraps helper in your own decorators to carry over metadata from the undecorated callable to the decorated one.
+  - Just like any other tool in the software development toolbox, decorators are not a cure-all and they should not be overused. It’s important to balance the need to “get stuff done” with the goal of “not getting tangled up in a horrible, unmaintainable mess of a code base.”
+  
+  
+'''
+tags: [
+  "decorator"
+  "functions"
+  "closure"
+]
+isStarred: false
+isTrashed: false

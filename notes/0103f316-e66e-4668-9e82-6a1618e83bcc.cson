@@ -1,0 +1,30 @@
+createdAt: "2019-01-18T19:35:19.441Z"
+updatedAt: "2019-01-18T19:38:03.472Z"
+type: "SNIPPET_NOTE"
+folder: "7fa5be337c9127eb71b8"
+title: "Commands to initiate safe mode with networking, reboot, and disable safe mode"
+tags: [
+  "windows"
+]
+description: "Commands to initiate safe mode with networking, reboot, and disable safe mode"
+snippets: [
+  {
+    name: "safemode.bat"
+    mode: "APL"
+    content: '''
+      #This will set the safemode switch:
+      bcdedit /set {current} safeboot minimal 
+      
+      #with networking:
+      bcdedit /set {current} safeboot network
+      
+      #then reboot the machine with
+      shutdown /r
+      
+      #to put back in normal mode via dos:
+      bcdedit /deletevalue {current} safeboot
+    '''
+  }
+]
+isStarred: false
+isTrashed: false

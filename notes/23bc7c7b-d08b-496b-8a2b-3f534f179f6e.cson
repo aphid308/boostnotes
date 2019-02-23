@@ -1,0 +1,58 @@
+createdAt: "2018-06-21T14:29:56.260Z"
+updatedAt: "2018-06-24T21:34:55.650Z"
+type: "MARKDOWN_NOTE"
+folder: "7fa5be337c9127eb71b8"
+title: "Install and Configure DDClient"
+content: '''
+  # Install and Configure DDClient
+  
+  Install the client from apt.
+  ```bash
+  sudo apt-get update && sudo apt-get install -y ddclient
+  ```
+  Open the configuration file.
+  ```bash
+  sudo vim /etc/ddclient.conf
+  ```
+  Make it look like this
+  ```ini
+  # ddclient configuration for Dynu
+  #
+  # /etc/ddclient.conf
+  daemon=60                                                # Check every 60 seconds.
+  syslog=yes                                               # Log update msgs to syslog.
+  mail=root                                                # Mail all msgs to root.
+  mail-failure=root                                        # Mail failed update msgs to root.
+  pid=/var/run/ddclient.pid                                # Record PID in file.                                      
+  use=web, web=checkip.dynu.com/, web-skip='IP Address'    # Get ip from server.
+  server=api.dynu.com                                      # IP update server.
+  protocol=dyndns2                        
+  login=myusername                                         # Your username.
+  password=YOURPASSWORD                                    # Password or MD5 of password.
+  MYDOMAIN.DYNU.COM                                        # List one or more hostnames one on each line.
+  MYDOMAIN.COM
+  ```
+  Ensure the configuration works
+  ```bash
+   sudo ddclient -daemon=0 -debug -verbose -noquiet
+   ```
+   Just to be sure, I usually reboot here and then check that everything comes up properly.
+   ```bash
+   sudo /etc/init.d/ddclient status
+   ```
+   Should return
+   ```bash
+   Status of Dynamic DNS service update utility: ddclient is running
+  ```
+'''
+tags: [
+  "dyndns"
+  "dynu"
+  "ddclient"
+  "dynamic_dns"
+  "linux"
+  "network"
+  "install"
+]
+isStarred: false
+isTrashed: false

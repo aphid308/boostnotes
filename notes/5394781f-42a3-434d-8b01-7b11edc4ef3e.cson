@@ -1,0 +1,34 @@
+createdAt: "2018-06-18T20:29:32.230Z"
+updatedAt: "2018-06-18T20:32:14.863Z"
+type: "MARKDOWN_NOTE"
+folder: "7fa5be337c9127eb71b8"
+title: "Raspberry Pi: Pre-Configure WiFi Connection"
+content: '''
+  # Raspberry Pi: Pre-Configure WiFi Connection
+  
+  _Create configurations for Raspberry Pi to connect to WiFi on first boot_
+  _so you will not need to connect a monitor/keyboard/mouse_
+  
+  ```ini
+  ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+  update_config=1
+  country=US
+  
+  network={
+      ssid="«your_SSID»"
+      psk="«your_PSK»"
+      key_mgmt=WPA-PSK
+  }
+  
+  #Add this file to the /boot directory in your SD card
+  #To enable SSH just create a file "ssh" in the /boot directory of the SD card
+  ```
+'''
+tags: [
+  "raspberry_pi"
+  "sysadmin"
+  "wifi"
+  "ini"
+]
+isStarred: false
+isTrashed: false

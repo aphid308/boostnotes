@@ -1,0 +1,31 @@
+createdAt: "2018-06-18T20:05:21.289Z"
+updatedAt: "2018-06-18T20:05:38.488Z"
+type: "MARKDOWN_NOTE"
+folder: "dc87178bcf7ff750b30f"
+title: "Django Address Model"
+content: '''
+  # Django Address Model
+  
+  ```python
+  class Address(models.Model):
+      """Model to store addresses for accounts"""
+      address_line1 = models.CharField("Address line 1", max_length = 45)
+      address_line2 = models.CharField("Address line 2", max_length = 45, blank = True)
+      postal_code = models.CharField("Postal Code", max_length = 10)
+      city = models.CharField(max_length = 50, blank = False)
+      state_province = models.CharField("State/Province", max_length = 40, blank = True)
+      
+   
+      def __unicode__(self):
+          return "%s, %s %s" % (self.city, self.state_province,
+                                str(self.country))
+   
+      class Meta:
+          verbose_name_plural = "Addresses"
+          unique_together = ("address_line1", "address_line2", "postal_code",
+                             "city", "state_province", "country")
+          ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

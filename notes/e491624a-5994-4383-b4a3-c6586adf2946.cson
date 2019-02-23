@@ -1,0 +1,22 @@
+createdAt: "2018-06-19T19:26:35.096Z"
+updatedAt: "2018-06-24T22:19:53.421Z"
+type: "MARKDOWN_NOTE"
+folder: "bccde01890c021d732c8"
+title: "On Implementing Context Managers with a Decorator"
+content: '''
+  # On Implementing Context Managers with a Decorator
+  _This needs to have some examples added for futher clarity_
+  
+  Python’s generators and the contextlib.contextmanager decorator provide a convenient way to implement these protocols. If a generator function is decorated with the ```contextlib.contextmanager``` decorator, it will return a context manager implementing the necessary ```__enter__()``` and ```__exit__()``` methods, rather than the iterator produced by an undecorated generator function.
+'''
+tags: [
+  "stub"
+  "context-manager"
+  "decorator"
+  "file-handling"
+  "os"
+  "test"
+  "tdd"
+]
+isStarred: false
+isTrashed: false

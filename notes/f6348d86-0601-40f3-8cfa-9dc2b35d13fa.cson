@@ -1,0 +1,107 @@
+createdAt: "2018-06-18T20:46:56.870Z"
+updatedAt: "2018-06-18T20:56:26.945Z"
+type: "MARKDOWN_NOTE"
+folder: "b37fcbd0595412f586b4"
+title: "Context Managers"
+content: '''
+  # Context Managers
+  _Notes from Python Tricks by Dan Bader_
+  
+  Context managers are methods that implement the `with` functionality of an object. We use these managers to handle the set up/tear down of connections and other handlers that must be terminated/closed in order to avoid problems in our code.
+  
+  Basic context manager implementation
+  ```python
+  class Context(object):
+      #Object is initialized
+      def __init__(self, data):
+          self.data = data
+      #Enter the context
+      def __enter__(self):
+          print(f"Object {self.data} has been initialize")
+          #Business logic
+          return self.data
+      def __exit__(self, type, value, traceback):
+          #Exit
+          print(f"Object {self.data} has been cleaned up")
+          
+  with Context("some data") as f:
+      print(f"Operate on data: {f}")
+      pass
+  
+  print(f"We are now out of context")
+  ```
+  Output
+  ```
+  >>>Object some data has been initialize
+  >>>Operate on data: some data
+  >>>Object some data has been cleaned up
+  >>>We are now out of context
+  ```
+  
+  The "open" class for dealing with files has a built in context manager
+  ```python
+  #Open the file and assign variable
+  with open("file.json", "w") as file_:
+      #write some data to the file
+      file_.write("add data to file")
+      #when context is exited the manager automatically runs file_.close() on the instance
+  ```
+  A common use case for implementing a context manager is managing threads.
+  
+  ```python
+  with open('hello.txt', 'w') as f:
+      f.write('hello, world')
+  ```
+  Is the same as writing
+  ```python
+  f = open('hello.txt', 'w')
+  try:
+      f.write('hello, world')
+  finally:
+      f.close()
+  ```
+  The 'with' statement handles resource management it ensures that the file will be closed with the context of the statement is exited
+  Another example is in the threading.Lock class
+  ```python
+  import threading
+  
+  
+  some_lock = threading.Lock()
+  
+  #harmful
+  some_lock.acquire()
+  try:
+      #do something
+  finally:
+      some_lock.release()
+  
+  #better
+  with some_lock:
+      #do something
+  ```
+  Supporting 'with' in your own objects
+  ```python
+  class ManagedFile:
+      def __init__(self, name):
+          self.name = name
+  
+      def __enter__(self):
+          self.file = open(self.name, 'w')
+          return self.file
+  
+      def __exit__(self, exc_type, exc_val, exc_tb):
+          if self.file:
+              self.close()
+  
+  with ManagedFile('hello.txt') as f:
+      f.write('hello world')
+      f.write('bye now')
+  ```
+  The above shows that we can create our own context managers by using these class methods
+  
+  
+  
+'''
+tags: []
+isStarred: false
+isTrashed: false

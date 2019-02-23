@@ -1,0 +1,32 @@
+createdAt: "2018-06-18T20:41:26.547Z"
+updatedAt: "2018-06-18T20:45:56.907Z"
+type: "MARKDOWN_NOTE"
+folder: "b37fcbd0595412f586b4"
+title: "Assertions"
+content: '''
+  # Assertions
+  _Notes from Python Tricks by Dan Bader_
+  
+  Assert statements can be used in debugging to quickly determine if code is evaluating correctly. Asserts are often used in unit tests to create cases to pass/fail for various parts of code. Below are some examples of testing a case with an assert.
+  
+  ```python
+  def apply_discount(product, discount):
+      price = int(product['price'] * (1.0 - discount))
+      #assertion will throw an error if the product 
+      #price is lower than zero after discount
+      assert 0 <= price <= product['price']
+      return price
+      
+  # Create a test object for a pair of shoes
+  
+  shoes = {'name': 'Fancy Shoes', 'price': 14900}
+  
+  apply_discount(shoes, 0.25) #apply a 25% discount
+  apply_discount(shoes, 2.0) #apply 200% discount, this will throw and AssertionError
+  ```
+  
+  This will throw an error if the `apply_discount` function allows a price below 0.
+'''
+tags: []
+isStarred: false
+isTrashed: false

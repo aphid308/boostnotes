@@ -1,0 +1,56 @@
+createdAt: "2018-06-24T00:39:16.188Z"
+updatedAt: "2018-06-24T21:32:52.749Z"
+type: "SNIPPET_NOTE"
+folder: "8c033d3e938df7495c26"
+title: "Docker compose file to build Gitea server."
+description: "Docker compose file to build Gitea server."
+snippets: [
+  {
+    name: "docker-gitea.yml"
+    mode: "YAML"
+    content: '''
+      version: "2"
+      
+      networks:
+        gitea:
+          external: false
+      
+      services:
+        server:
+          image: gitea/gitea:latest
+          environment:
+            - USER_UID=1000
+            - USER_GID=1000
+          restart: always
+          networks:
+            - gitea
+          volumes:
+            - ./gitea:/data
+          ports:
+            - "3000:3000"
+            - "222:22"
+      +    depends_on:
+      +      - db
+      +
+      +  db:
+      +    image: postgres:9.6
+      +    restart: always
+      +    environment:
+      +      - POSTGRES_USER=gitea
+      +      - POSTGRES_PASSWORD=gitea
+      +      - POSTGRES_DB=gitea
+      +    networks:
+      +      - gitea
+      +    volumes:
+      +      - ./postgres:/var/lib/postgresql/data
+    '''
+  }
+]
+tags: [
+  "docker"
+  "git"
+  "version_control"
+  "foss"
+]
+isStarred: false
+isTrashed: false

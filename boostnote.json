@@ -1,0 +1,85 @@
+{
+  "folders": [
+    {
+      "key": "dc87178bcf7ff750b30f",
+      "color": "#3FD941",
+      "name": "Django"
+    },
+    {
+      "key": "bccde01890c021d732c8",
+      "color": "#B013A4",
+      "name": "Python"
+    },
+    {
+      "key": "b37fcbd0595412f586b4",
+      "color": "#3FD941",
+      "name": "Python Tricks"
+    },
+    {
+      "key": "43fabea9a8b7259d668c",
+      "color": "#FF8E00",
+      "name": "Linux"
+    },
+    {
+      "key": "8c033d3e938df7495c26",
+      "color": "#FF8E00",
+      "name": "Git"
+    },
+    {
+      "key": "7fa5be337c9127eb71b8",
+      "color": "#30D5C8",
+      "name": "Sysadmin"
+    },
+    {
+      "key": "6c96e425fe28441f83f5",
+      "color": "#3FD941",
+      "name": "Javascript"
+    },
+    {
+      "key": "87bdde29fbe492e66a59",
+      "color": "#B013A4",
+      "name": "Active Directory"
+    },
+    {
+      "key": "a7b14cf237016d88200e",
+      "color": "#30D5C8",
+      "name": "Chromalog"
+    },
+    {
+      "key": "e8ac6a1dc6146feec314",
+      "color": "#B013A4",
+      "name": "SummonBot"
+    },
+    {
+      "key": "82a568dbde2f931f3b1f",
+      "color": "#E10051",
+      "name": "Misc"
+    },
+    {
+      "key": "810e85abf98d110e3ec3",
+      "color": "#E8D252",
+      "name": "Bookmarks"
+    },
+    {
+      "key": "36d51a2e6b9d8777d6fe",
+      "color": "#3FD941",
+      "name": "TKC"
+    },
+    {
+      "key": "cbb115fc148a179664cc",
+      "color": "#E10051",
+      "name": "Data Science"
+    },
+    {
+      "key": "b575d372f71ac12888ba",
+      "color": "#2BA5F7",
+      "name": "Environment Setup"
+    },
+    {
+      "key": "b807297f316925a0e4a7",
+      "color": "#E10051",
+      "name": "github page"
+    }
+  ],
+  "version": "1.0"
+}

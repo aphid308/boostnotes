@@ -1,0 +1,27 @@
+createdAt: "2019-02-22T02:46:08.788Z"
+updatedAt: "2019-02-22T03:07:20.049Z"
+type: "MARKDOWN_NOTE"
+folder: "b575d372f71ac12888ba"
+title: "4. Install Docker Compose"
+tags: []
+content: '''
+  # 4. Install Docker Compose
+  
+  ### Curl the binary into the usr/lib/bin
+  
+  ```bash
+  sudo curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-uname -s-uname -m -o /usr/local/bin/docker-compose
+  ```
+  ### Mod the binary to executable
+  ```bash
+  sudo chmod +x /usr/local/bin/docker-compose
+  ```
+  ### Add user to the docker group
+  ```bash
+  sudo groupadd docker
+  sudo gpasswd -a $USER docker
+  ```
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

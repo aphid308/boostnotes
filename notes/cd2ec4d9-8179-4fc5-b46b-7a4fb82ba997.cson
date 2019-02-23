@@ -1,0 +1,422 @@
+createdAt: "2019-02-21T06:26:29.255Z"
+updatedAt: "2019-02-21T06:28:40.300Z"
+type: "MARKDOWN_NOTE"
+folder: "cbb115fc148a179664cc"
+title: "Pulling JSON to DataFrame"
+tags: [
+  "pandas"
+  "json"
+  "dataframe"
+  "requests"
+]
+content: '''
+  # Pulling JSON to DataFrame
+  
+  ```python
+  import pandas as pd
+  import json
+  import requests
+  
+  response = requests.get('http://libgen.io/json.php?mode=last&timefirst=2000-12-12&fields=Title,Author,MD5,identifier')
+  data = json.loads(response.text)
+  frame = pd.DataFrame(data)
+  frame
+  ```
+  
+  
+  
+  
+  <div>
+  
+  <table border="1" class="dataframe">
+    <thead>
+      <tr style="text-align: right;">
+        <th></th>
+        <th>author</th>
+        <th>md5</th>
+        <th>title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>0</th>
+        <td>Philip Anderson</td>
+        <td>7b2a4d53fde834e801c26a2bab7e0240</td>
+        <td>Handbook of Clinical Drug Data</td>
+      </tr>
+      <tr>
+        <th>1</th>
+        <td>K V Peter</td>
+        <td>048EA0496DB0444F873139CD705A07AF</td>
+        <td>Handbook of Herbs and Spices</td>
+      </tr>
+      <tr>
+        <th>2</th>
+        <td>Peter, K.V.</td>
+        <td>411B9300A2F2094800E0E30D439C30FD</td>
+        <td>Handbook of Herbs and Spices: Volume 2</td>
+      </tr>
+      <tr>
+        <th>3</th>
+        <td>Barbara Janson Cohen</td>
+        <td>372E34D136FBF39DCE00460D9E8F1F52</td>
+        <td>Medical terminology, an illustrated guide</td>
+      </tr>
+      <tr>
+        <th>4</th>
+        <td>Михайлов С.С. (ред.)</td>
+        <td>1753C32AF92FA2F8DE5A62FBC3805D95</td>
+        <td>Международная анатомическая номенклатура (Pari...</td>
+      </tr>
+      <tr>
+        <th>5</th>
+        <td>Leslie C. Grammer, Paul A. Greenberger</td>
+        <td>C086E2244AD712FE683C37C0E677B79B</td>
+        <td>Patterson's Allergic Diseases</td>
+      </tr>
+      <tr>
+        <th>6</th>
+        <td>Hilda Butler, H. Butler</td>
+        <td>D0D1B36D6561F74CAE2A359E8BC24777</td>
+        <td>Poucher's Perfumes, Cosmetics and Soaps</td>
+      </tr>
+      <tr>
+        <th>7</th>
+        <td>George Pinchuk</td>
+        <td>5F94EA5F1EBCBF82D9E46AE72BCFAA08</td>
+        <td>Schaum's Immunology</td>
+      </tr>
+      <tr>
+        <th>8</th>
+        <td>The Remote, Austere, Wilderness and Third Worl...</td>
+        <td>EB252D785B9D104EC533CF5326D89DEF</td>
+        <td>Survival and Austere Medicine: An Introduction</td>
+      </tr>
+      <tr>
+        <th>9</th>
+        <td>Киреева Т.Н.</td>
+        <td>8FCB740B8C13F202E89E05C4937C09AC</td>
+        <td>Чтобы спина не болела [Болезни позвоночника и ...</td>
+      </tr>
+      <tr>
+        <th>10</th>
+        <td>Abul K. Abbas MBBS, Andrew H. Lichtman MD  PhD</td>
+        <td>2407EC2648233ACF283DE1DC726FC519</td>
+        <td>Basic Immunology. Functions and Disorders of t...</td>
+      </tr>
+      <tr>
+        <th>11</th>
+        <td>Alan R. Aitkenhead BSc  MD  FRCA, David J. Row...</td>
+        <td>C1BFB1E9DDCC292C605BFDC87B823B6B</td>
+        <td>Textbook of Anaesthesia</td>
+      </tr>
+      <tr>
+        <th>12</th>
+        <td>Elizabeth S. Allman, John A. Rhodes</td>
+        <td>D13DCCAC55E0F9B17C9D7AC267A96D4F</td>
+        <td>Mathematical models in biology. An introduction</td>
+      </tr>
+      <tr>
+        <th>13</th>
+        <td>Elizabeth S. Allman, John A. Rhodes</td>
+        <td>59F98A1FFBFF47448335DA76C11B7F51</td>
+        <td>Mathematical models in biology: solution manual</td>
+      </tr>
+      <tr>
+        <th>14</th>
+        <td>Susan Ayers, Andrew Baum, Chris McManus, Stant...</td>
+        <td>7567387B83FF1B90FDFCDA30E21DFAC4</td>
+        <td>Cambridge handbook of psychology, health and m...</td>
+      </tr>
+      <tr>
+        <th>15</th>
+        <td>Marcello Barbieri</td>
+        <td>C60F9DB2CC956AF8B59B4DBBCB311B32</td>
+        <td>The organic codes: an introduction to semantic...</td>
+      </tr>
+      <tr>
+        <th>16</th>
+        <td>Bellack A.S., Hersen M. (eds.)</td>
+        <td>FB5D926E1B6B7AC264CB8FB11325B945</td>
+        <td>Comprehensive Clinical Psychology</td>
+      </tr>
+      <tr>
+        <th>17</th>
+        <td>Bellack A.S., Hersen M. (eds.)</td>
+        <td>21037DFACCCCFA032BAE7A257992F37B</td>
+        <td>Comprehensive Clinical Psychology</td>
+      </tr>
+      <tr>
+        <th>18</th>
+        <td>Bellack A.S., Hersen M. (eds.)</td>
+        <td>8D6D3A29A42A00336F8DF0FF32496E10</td>
+        <td>Comprehensive Clinical Psychology</td>
+      </tr>
+      <tr>
+        <th>19</th>
+        <td>Bellack A.S., Hersen M. (eds.)</td>
+        <td>6A55404956BF0ABBD6AE5B6BCD4F942B</td>
+        <td>Comprehensive Clinical Psychology</td>
+      </tr>
+      <tr>
+        <th>20</th>
+        <td>Bellack A.S., Hersen M. (eds.)</td>
+        <td>60390629BC19446B9863CC76B87BC371</td>
+        <td>Comprehensive Clinical Psychology</td>
+      </tr>
+      <tr>
+        <th>21</th>
+        <td>Bellack A.S., Hersen M. (eds.)</td>
+        <td>3391F7E22FDF3053217B67B04B32DFE1</td>
+        <td>Comprehensive Clinical Psychology</td>
+      </tr>
+      <tr>
+        <th>22</th>
+        <td>Bellack A.S., Hersen M. (eds.)</td>
+        <td>74FFB72FBCB8BDBF336E4F8203CA434B</td>
+        <td>Comprehensive Clinical Psychology</td>
+      </tr>
+      <tr>
+        <th>23</th>
+        <td>Bellack A.S., Hersen M. (eds.)</td>
+        <td>B144EB5DD0D6F7F85DDA5050BDB2F20F</td>
+        <td>Comprehensive Clinical Psychology</td>
+      </tr>
+      <tr>
+        <th>24</th>
+        <td>Bellack A.S., Hersen M. (eds.)</td>
+        <td>EA9967D09EBCA16277AD34BC39027F80</td>
+        <td>Comprehensive Clinical Psychology</td>
+      </tr>
+      <tr>
+        <th>25</th>
+        <td>A.P. Rasnitsyn, Donald L. Quicke</td>
+        <td>9461F2EB94A7EB1B90A625B285E09AF8</td>
+        <td>History of insects</td>
+      </tr>
+      <tr>
+        <th>26</th>
+        <td>Tom Betsy, James Keogh</td>
+        <td>CFF0DECE0FBC9780F3C13DAF1936DAB7</td>
+        <td>Microbiology demystified</td>
+      </tr>
+      <tr>
+        <th>27</th>
+        <td>Clas Blomberg</td>
+        <td>AAC0058748685BAEB782D1A156A2ED25</td>
+        <td>Physics of life</td>
+      </tr>
+      <tr>
+        <th>28</th>
+        <td>Stephen R. Bolsover, Jeremy S. Hyams, Elizabet...</td>
+        <td>EE801E1CA0B5E588A7D20EC158DF15EA</td>
+        <td>Cell biology, a short course</td>
+      </tr>
+      <tr>
+        <th>29</th>
+        <td>Alla Borisyuk, Avner Friedman, Bard Ermentrout...</td>
+        <td>D63AA15AB0A797DBD851AE5F6F647611</td>
+        <td>Tutorials in Mathematical Biosciences I: Mathe...</td>
+      </tr>
+      <tr>
+        <th>...</th>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+      </tr>
+      <tr>
+        <th>9970</th>
+        <td>Stephen I. Brown, Marion I. Walter</td>
+        <td>2EE2D20454295DAA31BA0E9203B4A969</td>
+        <td>The art of problem posing</td>
+      </tr>
+      <tr>
+        <th>9971</th>
+        <td>Barry Cipra, Erik D. Demaine, Martin L. Demain...</td>
+        <td>131DE7D56315E415F4BC01F2CAC3305B</td>
+        <td>Tribute to a mathemagician</td>
+      </tr>
+      <tr>
+        <th>9972</th>
+        <td>John H. Conway, Richard Guy</td>
+        <td>64A88F46D1A1979FC3DC543920074901</td>
+        <td>The book of numbers</td>
+      </tr>
+      <tr>
+        <th>9973</th>
+        <td>Ulrich Daepp, Pamela Gorkin</td>
+        <td>B4BE9CEAEAF8E154340B1DF1A8C2FF51</td>
+        <td>Reading, writing, and proving: a closer look a...</td>
+      </tr>
+      <tr>
+        <th>9974</th>
+        <td>Marcel Danesi</td>
+        <td>C0BFDB01DF7D2343AC5B58AD9C162432</td>
+        <td>The liar paradox and the towers of Hanoi: the ...</td>
+      </tr>
+      <tr>
+        <th>9975</th>
+        <td>Dawson J.W.</td>
+        <td>46E486E22F91CEE1C0FC186D7E4DC357</td>
+        <td>Logical dilemmas. The life and work of Kurt Go...</td>
+      </tr>
+      <tr>
+        <th>9976</th>
+        <td>Dawson J.W.</td>
+        <td>E1B37C06EC1FB19DAD3D38859C16B7E9</td>
+        <td>Logical dilemmas: The life and work of Kurt Go...</td>
+      </tr>
+      <tr>
+        <th>9977</th>
+        <td>Denjoy A.</td>
+        <td>85F73927A384B78253F295D651232918</td>
+        <td>Aspects Actuels De La Pensee Mathematique</td>
+      </tr>
+      <tr>
+        <th>9978</th>
+        <td>John Derbyshire</td>
+        <td>E28B1DE3EEABFEE44A37EDA3BB3FDF33</td>
+        <td>Prime obsession: Bernhard Riemann and the grea...</td>
+      </tr>
+      <tr>
+        <th>9979</th>
+        <td>Descartes R.</td>
+        <td>61B06742C740174C8BAF75BBADC4A491</td>
+        <td>Geometry of Rene Descartes</td>
+      </tr>
+      <tr>
+        <th>9980</th>
+        <td>A. K. Dewdney</td>
+        <td>FD8C8CAAF14A477DD6CF07DF3C9E081D</td>
+        <td>Beyond reason: 8 great problems that reveal th...</td>
+      </tr>
+      <tr>
+        <th>9981</th>
+        <td>Dieudonne.</td>
+        <td>E6BF06D1E3671F4EBBD5849FD15A82CD</td>
+        <td>Historical development of algebraic geometry</td>
+      </tr>
+      <tr>
+        <th>9982</th>
+        <td>Henry E. Dudeney</td>
+        <td>716FCE63DB4C839F4BF8D87F6A507C2A</td>
+        <td>Amusements in Mathematics</td>
+      </tr>
+      <tr>
+        <th>9983</th>
+        <td>Henry Ernest Dudeney</td>
+        <td>9D4410A31BB7CF74E8765D11091C2097</td>
+        <td>The Canterbury Puzzles</td>
+      </tr>
+      <tr>
+        <th>9984</th>
+        <td>G. Waldo Dunnington, Jeremy Gray, Fritz-Egbert...</td>
+        <td>56B6F28BAB4CF272F4781C99DE114A1E</td>
+        <td>Carl Friedrich Gauss: Titan of Science</td>
+      </tr>
+      <tr>
+        <th>9985</th>
+        <td>Heinz-Dieter Ebbinghaus, Volker Peckhaus</td>
+        <td>032C7FCD87813592FC3EE242F1B6C54F</td>
+        <td>Ernst Zermelo: an approach to his life and work</td>
+      </tr>
+      <tr>
+        <th>9986</th>
+        <td>Michele Emmer</td>
+        <td>377B4D79874D4F7760944C719533568B</td>
+        <td>Mathematics and culture II</td>
+      </tr>
+      <tr>
+        <th>9987</th>
+        <td>Michele Emmer</td>
+        <td>AC89213A0E14B43813130FB68BF8C871</td>
+        <td>The visual mind II</td>
+      </tr>
+      <tr>
+        <th>9988</th>
+        <td>Péter Érdi</td>
+        <td>D96A15074819BAD6E7DE58B9E060105C</td>
+        <td>Complexity explained</td>
+      </tr>
+      <tr>
+        <th>9989</th>
+        <td>Theodore G. Faticoni</td>
+        <td>307C712570D31BC906D939DE33FA4678</td>
+        <td>The mathematics of infinity: a guide to great ...</td>
+      </tr>
+      <tr>
+        <th>9990</th>
+        <td>Ferraro S.</td>
+        <td>181AE38F4CB39FAC3C30684942DBE6E9</td>
+        <td>The rise and development of the theory of seri...</td>
+      </tr>
+      <tr>
+        <th>9991</th>
+        <td>David Flannery</td>
+        <td>0AF7DA50B683C08DC04B4D26EEE2BD69</td>
+        <td>The Square Root of 2</td>
+      </tr>
+      <tr>
+        <th>9992</th>
+        <td>David H. Fowler</td>
+        <td>50551C73A1E674E874779EBB3CE9ECC2</td>
+        <td>The mathematics of Plato's academy: a new reco...</td>
+      </tr>
+      <tr>
+        <th>9993</th>
+        <td>Fuchs D., Tabachnikov S.</td>
+        <td>0EC1FB6A552094C8EB777158E24F9ECF</td>
+        <td>Mathematical omnibus: Thirty lectures on class...</td>
+      </tr>
+      <tr>
+        <th>9994</th>
+        <td>Martin Gardner</td>
+        <td>8F7246E0BEE244C3B77BD16E31229B92</td>
+        <td>A Gardner's workout: training the mind and ent...</td>
+      </tr>
+      <tr>
+        <th>9995</th>
+        <td>Martin Gardner</td>
+        <td>4363AD191DB6B625BC6200326A51E5DF</td>
+        <td>Codes, ciphers, and secret writing</td>
+      </tr>
+      <tr>
+        <th>9996</th>
+        <td>Martin Gardner</td>
+        <td>0568D45F42F58A248BADC58929239A7E</td>
+        <td>Hexaflexagons and other mathematical diversion...</td>
+      </tr>
+      <tr>
+        <th>9997</th>
+        <td>Martin Gardner</td>
+        <td>96F709E6AFDA23E2C62B890F978514D8</td>
+        <td>Knotted doughnuts and other mathematical enter...</td>
+      </tr>
+      <tr>
+        <th>9998</th>
+        <td>Martin Gardner</td>
+        <td>2848B652353A91AD545C42AFCC41628D</td>
+        <td>Logic Machines And Diagrams</td>
+      </tr>
+      <tr>
+        <th>9999</th>
+        <td>Martin Gardner</td>
+        <td>C535FCED06EC58C1957B4483D2DDB6AC</td>
+        <td>Mathematical carnival</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>10000 rows × 3 columns</p>
+  </div>
+  
+  
+  
+  
+  ```python
+  
+  ```
+  
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

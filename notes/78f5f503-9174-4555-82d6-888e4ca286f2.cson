@@ -1,0 +1,55 @@
+createdAt: "2018-06-18T20:17:16.411Z"
+updatedAt: "2018-06-18T20:18:37.738Z"
+type: "MARKDOWN_NOTE"
+folder: "dc87178bcf7ff750b30f"
+title: "Postgresql Setup for Django"
+content: '''
+  # Postgresql Setup for Django
+  _Disclaimer: since moving to Docker for local development, this is mostly deprecated_
+  
+  Install the postgresql database and the development server.
+  ```
+  sudo apt-get install postgresql-9.1
+  sudo apt-get install postgresql-server-dev-9.1
+  ```
+  Activate our Virtualenv.
+  ```
+  workon <virtualenv>
+  ```
+  Install the Python Postgresql connector.
+  ```
+  pip install psycopg2
+  ```
+  Drop to SQL prompt and create the Django user and database for our project
+  ```sql
+  sudo -u postgres psql
+  postgres=# CREATE ROLE django_user NOSUPERUSER NOCREATEROLE INHERIT LOGIN;
+  postgres=# ALTER USER django_user PASSWORD '123';
+  postgres=# CREATE DATABASE django_user OWNER django_user;
+  ```
+  Now edit the database configuration in musiclibrary/settings.py
+  ```python
+  DATABASES = {
+      'default': {
+          'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+          'NAME': 'music_library',                      # Or path to database file if using sqlite3.
+          # The following settings are not used with sqlite3:
+          'USER': 'django_user',
+          'PASSWORD': '123',
+          'HOST': 'localhost',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+          'PORT': '5432',                      # Set to empty string for default.
+      }
+  }
+  ```
+  We can now run:
+  ```
+  python manage.py syncdb
+  ```
+'''
+tags: [
+  "deprecated"
+  "django"
+  "postgresql"
+]
+isStarred: false
+isTrashed: false

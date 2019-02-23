@@ -1,0 +1,68 @@
+createdAt: "2018-06-19T19:16:49.333Z"
+updatedAt: "2018-06-24T22:21:16.935Z"
+type: "SNIPPET_NOTE"
+folder: "bccde01890c021d732c8"
+title: "Custom Mapping implementation without inheriting dict"
+description: "Custom Mapping implementation without inheriting dict"
+snippets: [
+  {
+    name: "custom_mapping.py"
+    mode: "Python"
+    content: '''
+      from collections.abc import Mapping
+      
+      # ------------------------------------------
+      # ----SUBCLASSING dict WILL NOT GIVE YOU----
+      # -----ACCESS TO ITS INTERNAL C METHODS-----
+      # ------------------------------------------
+      #
+      # class DrownsMap(dict):
+      # 
+      #     def __getitem__(self, key):
+      #         if key == 'ghost':
+      #             return 'Boo!'
+      #         return super().__getitem__(key)
+      # 
+      #     def boo(self, key):
+      #         if key == "Ghost":
+      #             return 'Boo!'
+      #         else:
+      #             return None
+      
+      
+      class DrownsMap(Mapping):
+          def __init__(self, *args, **kwargs):
+              self._storage = dict(*args, **kwargs)
+      
+          def __getitem__(self, key):
+              if key == 'ghost':
+                  return 'Boo!'
+              return self._storage[key]
+      
+          def __iter__(self):
+              return iter(self._storage)
+      
+          def __len__(self):
+              return len(self._storage)
+      
+      
+      custom_mapping = DrownsMap(one=1, two=2, three=3)
+      
+      print(custom_mapping['one'])
+      print(custom_mapping['two'])
+      print(custom_mapping['three'])
+      print(custom_mapping.get("ghost"))
+      print(custom_mapping['ghost'])
+    '''
+  }
+]
+tags: [
+  "python"
+  "mapping"
+  "dict"
+  "custom_mapping"
+  "iterator"
+  "hash-table"
+]
+isStarred: false
+isTrashed: false

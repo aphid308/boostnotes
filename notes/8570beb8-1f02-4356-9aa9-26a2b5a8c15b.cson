@@ -1,0 +1,72 @@
+createdAt: "2018-06-18T20:20:30.745Z"
+updatedAt: "2018-06-19T17:33:10.561Z"
+type: "SNIPPET_NOTE"
+folder: "8c033d3e938df7495c26"
+title: "Generic .gitignore for Python Projects"
+description: "Generic .gitignore for Python Projects"
+snippets: [
+  {
+    name: ".gitignore"
+    mode: "Properties files"
+    content: '''
+      # Byte-compiled / optimized / DLL files
+      __pycache__/
+      *.py[cod]
+      
+      # C extensions
+      *.so
+      
+      # Distribution / packaging
+      bin/
+      build/
+      develop-eggs/
+      dist/
+      eggs/
+      lib/
+      lib64/
+      parts/
+      sdist/
+      var/
+      *.egg-info/
+      .installed.cfg
+      *.egg
+      
+      # Installer logs
+      pip-log.txt
+      pip-delete-this-directory.txt
+      
+      # Unit test / coverage reports
+      .tox/
+      .coverage
+      .cache
+      nosetests.xml
+      coverage.xml
+      
+      # Translations
+      *.mo
+      
+      # Mr Developer
+      .mr.developer.cfg
+      .project
+      .pydevproject
+      
+      # Rope
+      .ropeproject
+      
+      # Django stuff:
+      *.log
+      *.pot
+      
+      # Sphinx documentation
+      docs/_build/
+    '''
+  }
+]
+tags: [
+  "git"
+  "python"
+  "vc"
+  "version_control"
+]
+isStarred: false
+isTrashed: false

@@ -1,0 +1,40 @@
+createdAt: "2018-06-23T23:21:41.278Z"
+updatedAt: "2018-06-24T21:33:19.056Z"
+type: "SNIPPET_NOTE"
+folder: "dc87178bcf7ff750b30f"
+title: "Script to import data from CSV to Django"
+description: "Script to import data from CSV to Django"
+snippets: [
+  {
+    name: "load_data.py"
+    mode: "Python"
+    content: '''
+      from zips.models import ZipCode import csv 
+      import sys,os 
+      
+      
+      # Full path and name to your csv file 
+      csv_filepathname="/home/mitch/projects/wantbox.com/wantbox/zips/data/zipcodes.csv" 
+      # Full path to your django project directory 
+      your_djangoproject_home="/home/mitch/projects/wantbox.com/wantbox/" 
+      
+      sys.path.append(your_djangoproject_home) 
+      os.environ['DJANGO_SETTINGS_MODULE'] = 'settings' 
+      
+      dataReader = csv.reader(open(csv_filepathname), delimiter=',', quotechar='"') 
+      for row in dataReader: 
+          if row[0] != 'ZIPCODE': 
+          # Ignore the header row, import everything else 
+          zipcode = ZipCode() zipcode.zipcode = row[0] zipcode.city = row[1] zipcode.statecode = row[2] zipcode.statename = row[3] zipcode.save()
+    '''
+  }
+]
+tags: [
+  "django"
+  "fixtures"
+  "database"
+  "automation"
+  "data_entry"
+]
+isStarred: false
+isTrashed: false

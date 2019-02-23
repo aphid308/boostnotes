@@ -1,0 +1,20 @@
+createdAt: "2018-07-06T18:41:55.922Z"
+updatedAt: "2018-07-06T18:43:11.900Z"
+type: "SNIPPET_NOTE"
+folder: "bccde01890c021d732c8"
+title: "Execute code when script is called."
+description: "Execute code when script is called."
+snippets: [
+  {
+    name: "dunder_main.py"
+    mode: "Python"
+    content: '''
+      if __name__ == "__main__":
+          #Execute this code when script is called by interpreter
+          pass
+    '''
+  }
+]
+tags: []
+isStarred: false
+isTrashed: false

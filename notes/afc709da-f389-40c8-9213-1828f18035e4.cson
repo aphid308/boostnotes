@@ -1,0 +1,66 @@
+createdAt: "2018-06-18T20:13:28.740Z"
+updatedAt: "2018-06-18T20:20:20.496Z"
+type: "MARKDOWN_NOTE"
+folder: "8c033d3e938df7495c26"
+title: "Basic Git Operations in a Django Project"
+content: '''
+  # Basic Git Operations in a Django Project
+  _Disclaimer: These are ikely out of date practices that I no longer use_
+  _See my Cookiecutter Django notes for an idea of how I do things now_
+  
+  Git is an important tool for tracking changes in our software, it enables us  
+  to follow our code revisions and revert if necessary as well as create and  
+  manage several streams or branches of our code base.
+  
+  First, go ahead and create and account on GitHub.org
+  Create a new repository called musiclibrary.
+  
+  Install git.
+  ```
+  sudo apt-get install git
+  ```
+  
+  Change to the base directory of our project. For us this will the top most  
+  directory named musiclibrary. The only thing in this folder currently should  
+  be another folder called musiclibrary.
+  
+  Initialize the repo.
+  ```
+  git init
+  ```
+  Drop in a .gitignore file. This tells git what file types to ignore and not  
+  track. There is a good boiler plate .gitignore for Django 
+  https://raw.githubusercontent.com/aphid308/django_tutorial/master/.gitignore.
+  If you are in your root directory you can create this file easily like this:
+  ```
+  curl https://raw.githubusercontent.com/aphid308/django_tutorial/master/.gitignore > .gitignore
+  ```
+  
+  Lets add all of our files to the new repo (with the exception of ignored files).
+  ```
+  git add --all
+  ```
+  Now we can enter our first commit. The commit tells git that we want this version of the codebase saved. We can revert back to any point at which there is a commit.
+  ```
+  git commit -m "Initial commit"
+  ```
+  Now go back to GitHub and look at the empty repo you created.
+  Go ahead and copy the https address of your repo.
+  Now we can setup a remote push location to sync our repository to GitHub.
+  ```
+  git add remote musiclibrary <url of your repo>
+  ```
+  Now we can push to the GitHub.
+  ```
+  git push -u musiclibrary master
+  ```
+  This will push our code to the remote repo on the master branch. It will prompt for your GitHub username and password.
+'''
+tags: [
+  "deprecated"
+  "django"
+  "git"
+  "sysadmin"
+]
+isStarred: false
+isTrashed: false

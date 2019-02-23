@@ -1,0 +1,47 @@
+createdAt: "2019-01-31T16:54:37.723Z"
+updatedAt: "2019-01-31T17:41:12.663Z"
+type: "MARKDOWN_NOTE"
+folder: "36d51a2e6b9d8777d6fe"
+title: "Ledgewater Outlook Transfer"
+tags: [
+  "ledgewater_pools"
+  "outlook"
+  "email"
+  "pst"
+  "regedit"
+]
+content: '''
+  ## Ledgewater Outlook Transfer
+  
+  ### Current setup
+  Host: LEDGEWATERPC06
+  Logon Name: ledgewater
+  Email Account: Jess
+  PST Path: C:\\Outlook Data Files\\Outlook.pst
+  
+  Host: LEDGWATERPC04
+  Logon Name: sue
+  Email Account: Katie
+  PST Path: C:\\Users\\Sue\\AppData\\Local\\Microsoft\\Outlook\\Katiealaimo@ledgewaterpools.com.pst
+  PST Path: C:\\Users\\Sue\\Documents\\Outlook Files\\katiegeyer@ledgewaterpools.com.pst
+  
+  ### End Setup
+  
+  Host: LEDGEWATERPC06
+  Logon Name: sue
+  Email Account: Katie
+  PST Path: C:\\Users\\Sue\\AppData\\Local\\Microsoft\\Outlook\\Katiealaimo@ledgewaterpools.com.pst
+  PST Path: C:\\Users\\Sue\\Documents\\Outlook Files\\katiegeyer@ledgewaterpools.com.pst
+  
+  Host: LEDGEWATERPC04
+  Logon Name: ledgewater
+  Email Account: Jess
+  PST Path: C:\\Outlook Data Files\\Outlook.pst
+  
+  
+  
+  
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

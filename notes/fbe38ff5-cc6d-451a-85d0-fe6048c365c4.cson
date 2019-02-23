@@ -1,0 +1,58 @@
+createdAt: "2018-06-19T19:27:27.667Z"
+updatedAt: "2018-12-18T02:25:43.348Z"
+type: "SNIPPET_NOTE"
+folder: "bccde01890c021d732c8"
+title: "Send an email with Python"
+description: "Send an email with Python"
+snippets: [
+  {
+    name: "send_email.py"
+    mode: "Python"
+    content: '''
+      #Python2
+      import smtplib
+       
+      
+      server = smtplib.SMTP('smtp.gmail.com', 587)
+      server.starttls()
+      server.login("YOUR EMAIL ADDRESS", "YOUR PASSWORD")
+       
+      msg = "YOUR MESSAGE!"
+      server.sendmail("YOUR EMAIL ADDRESS", "THE EMAIL ADDRESS TO SEND TO", msg)
+      server.quit()
+      
+      #Python3
+      import smtplib, ssl
+      
+      
+      smtp_server = "smtp.gmail.com"
+      port = 587
+      sender_email = "me@gmail.com"
+      password = input("Type password and hit enter: ")
+      
+      #Create a secure SSL context
+      context = ssl.create_default_context()
+      
+      #Try to login and send an email
+      try:
+        server = smtplib.SMTP(smtp_server, port)
+        server.starttls(context=context)
+        server.login(sender_email, password)
+        server.sendmail(sender_email, receiver_email, message)
+      except Exception as e:
+        print(e)
+      finally:
+        server.quit()
+    '''
+  }
+]
+tags: [
+  "email"
+  "sendmail"
+  "smtp"
+  "tls"
+  "ssl"
+  "notification"
+]
+isStarred: false
+isTrashed: false

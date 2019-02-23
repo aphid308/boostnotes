@@ -1,0 +1,35 @@
+createdAt: "2018-06-19T17:24:08.048Z"
+updatedAt: "2018-06-24T22:22:33.000Z"
+type: "SNIPPET_NOTE"
+folder: "bccde01890c021d732c8"
+title: "ConfigParse - Basic example of parsing a config Original article: goo.gl/re42vS"
+description: "ConfigParse - Basic example of parsing a config Original article: goo.gl/re42vS"
+snippets: [
+  {
+    name: "parse_config.py"
+    mode: "Python"
+    content: '''
+      def ConfigSectionMap(section):
+          dict1 = {}
+          options = Config.options(section)
+          for option in options:
+              try:
+                  dict1[option] = Config.get(section, option)
+                  if dict1[option] == -1:
+                      DebugPrint("skip: %s" % option)
+              except:
+                  print("exception on %s!" % option)
+                  dict1[option] = None
+          return dict1
+    '''
+  }
+]
+tags: [
+  "config"
+  "parsing"
+  "ini"
+  "config-management"
+  "constants"
+]
+isStarred: false
+isTrashed: false

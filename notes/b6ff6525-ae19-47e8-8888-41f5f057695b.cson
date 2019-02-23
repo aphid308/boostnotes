@@ -1,0 +1,57 @@
+createdAt: "2018-06-19T19:28:17.872Z"
+updatedAt: "2018-06-24T22:18:40.589Z"
+type: "SNIPPET_NOTE"
+folder: "bccde01890c021d732c8"
+title: "Directory walk and search implemented with generators"
+description: "Directory walk and search implemented with generators"
+snippets: [
+  {
+    name: "walk_search.py"
+    mode: "Python"
+    content: '''
+      def generate_filenames():
+          """
+          generates a sequence of opened files
+          matching a specific extension
+          """
+          for dir_path, dir_names, file_names in os.walk('test/'):
+              for file_name in file_names:
+                  if file_name.endswith('.py'):
+                      yield open(os.path.join(dir_path, file_name))
+      
+      def cat_files(files):
+          """
+          takes in an iterable of filenames
+          """
+          for fname in files:
+              for line in fname:
+                  yield line
+      
+      def grep_files(lines, pattern=None):
+          """
+          takes in an iterable of lines
+          """
+          for line in lines:
+              if pattern in line:
+                  yield line
+      
+      
+      py_files = generate_filenames()
+      py_file = cat_files(py_files)
+      lines = grep_files(py_file, 'python')
+      for line in lines:
+          print (line)
+    '''
+  }
+]
+tags: [
+  "os"
+  "filesystem"
+  "directory"
+  "directory-walk"
+  "directory-search"
+  "search"
+  "generator"
+]
+isStarred: false
+isTrashed: false

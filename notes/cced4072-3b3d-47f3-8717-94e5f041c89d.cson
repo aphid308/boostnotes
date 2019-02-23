@@ -1,0 +1,138 @@
+createdAt: "2018-06-19T19:37:57.751Z"
+updatedAt: "2019-01-29T20:13:40.192Z"
+type: "MARKDOWN_NOTE"
+folder: "7fa5be337c9127eb71b8"
+title: "Programming Links"
+content: '''
+  # Programming Links
+  
+  ### Developer Tools
+  ---
+  [Gitter](https://gitter.im/home/explore) - Chat with other programmers.  
+  [Jsonstore.io](https://www.jsonstore.io/) - Test sandbox for RESTful data operations.  
+  [Regular Expressions](https://regex101.com/) - Regular expression sandbox and library.  
+  [Cacher.io](https://app.cacher.io/) - Code snippet management, powered by GitHubGist.  
+  [Gist](https://gist.github.com) - Code snippet management.  
+  [Github](https://github.com) - Version control  
+  [Gitlab](https://gitlab.com) - Version Control  
+  [Gitea](https://gitea.io/en-us/) - Self hosted version control  
+  [Bitbucket](https://bitbucket.org) - Version control  
+  [Mailgun](https://app.mailgun.com) - Hosted email API  
+  [SendGrid](https://app.sendgrid.com/) - Mail delivery API PaaS.  
+  [Postman](https://web.postman.co/workspaces?type=personal) - API workbench.  
+  [Dynu](https://www.dynu.com/en-US/ControlPanel) - Dynamic DNS service.  
+  [PyUp](https://pyup.io/account/) - Python package management.  
+  [HurlIt](https://www.hurl.it/) - Make Http Requests.  
+  [HttpBin](http://httpbin.org/) - A Simple Http Request/Response Service.    
+  [0Auth](https://oauth.io/signin) - Hosted authentication service.  
+  [Bootsnipp](https://bootsnipp.com/) - Twitter Bootstrap snippets for front end work.  
+  [Backblaze B2](https://secure.backblaze.com/b2_buckets.htm) - Cloud backup storage platform.  
+  [Django Discord](https://discordapp.com/channels/159039020565790721/159041648167354368) - Django Discord channel.  
+  [RandomKeyGen](https://randomkeygen.com/) - Random key generator with variable complexity  
+  [Fly.io](https://fly.io/) - Global Javascript runtime.  
+  [Let's Encrypt](https://letsencrypt.org/) - Free, automated and open Certificate Authority.  
+  [JSFiddle](https://jsfiddle.net/) - Javascript testing sandbox.  
+  [Enboard.co](https://enboard.co) - Data boarding app, might be of some use eventually  
+  [Dillinger](https://dillinger.io/) - Markdown editor
+  
+  ### Programming Practice
+  ---
+  [CodeFights](https://codefights.com/) - Competetive coding.  
+  [Exercism.io](http://exercism.io) - Exercises by testing (not unlike Python Koans).  
+  [Code Academy](http://codeacademy.com) - Short basic coding classes.  
+  [Talk Python](https://training.talkpython.fm/) - The podcast, the training courses. Good stuff.  
+  [Hack This Site](https://www.hackthissite.org) - Toy site with hacking "challenges"  
+  [DataCamp](http://datacamp.com) - Numpy practice site  
+  [Project Euler](https://projecteuler.ne) - Math oriented programming problems.  
+  [Edabit](https://edabit.com/) - E-learning  
+  [Python Tricks Toolkit](https://training.dbader.org/courses/python-tricks-toolkit) - Tool kit included with Python Tricks book. 
+  
+  ### Platform
+  ---
+  [Heroku](https://www.heroku.com/) - Cloud application hosting.     
+  [Digital Ocean](https://www.digitalocean.com/) - Cloud VM hosting.  
+  [PythonAnywhere](https://www.pythonanywhere.com/) - Hosted Python PaaS.  
+    
+  
+  [WHITEWHALE](http://whitewhale.loseyourip.com) - In house development server.  
+  [WITCH-HOUSE](http://witch-house.loseyourip.com) - In house development server.  
+  [SendGrid](https://app.sendgrid.com/) - Mail delivery API PaaS.  
+  [Vultr](https://my.vultr.com) - Cloud VM/VPS hosting.  
+  [Resin.io](https://dashboard.resin.io/apps) - Raspberry Pi management with Docker deployment.  
+  [Trinket](https://trinket.io/) - Web based code canvas  
+  [Apache Airflow](https://airflow.apache.org/) - Worker process manager, incubator stage.  
+  
+  
+  
+  ### Training
+  ---
+  [Egghead.io](https://egghead.io/) - Video coding courses.  
+  [Git Ready](http://gitready.com/) - Git training.  
+  [Python Tricks Toolkit](https://training.dbader.org/courses/python-tricks-toolkit) - Tool kit included with Python Tricks book.   
+  [CodeFights](https://codefights.com/) - Competetive coding.  
+  [Exercism.io](http://exercism.io) - Exercises by testing (not unlike Python Koans).  
+  [Code Academy](http://codeacademy.com) - Short basic coding classes.  
+  [Python Koans](https://github.com/gregmalcolm/python_koans) - Master the Zen of Python. Make tests pass.  
+  
+  ### Data Aggregator/Bookmarking Sites
+  ---
+  [Feeder](http://feeder.co/reader) - RSS Reader  
+  [Hack This Site](https://www.hackthissite.org) - Toy site with hacking "challenges"  
+  [Hacker News](https://news.ycombinator.com/login) - Garbage fire of a tech news site.  
+  [Cloud Caster](http://www.cloud-caster.com/) - Podcast aggregator.  
+  [Pocket](https://getpocket.com/a/queue/) - Bookmark manager/web clipper.  
+  [TastyMarks](https://tastymarks.com) - Social Bookmarking  
+  [Saved.io](http://saved.io/) - Bookmarking
+  [Booky.io](http://booky.io) - Bookmarking  
+  
+  ### Blogs
+  ---
+  [Willam S. Vincent](https://wsvincent.com/) - William S. Vincent.  
+  [Real Python](https://realpython.com/tutorials/) - Real Python Tutorials.  
+  [Talk Python](https://training.talkpython.fm/) - The podcast, the training courses. Good stuff.  
+  
+  ### Documentation
+  ---
+  [Django Docs](https://docs.djangoproject.com/en/2.0/) - Django 2.0 documentation page.  
+  [Django-Bootstrap3](http://django-bootstrap3.readthedocs.io/en/latest/index.html) - django-bootstrap3 application docs.  
+  [Cookiecutter-Django](https://cookiecutter-django.readthedocs.io/en/latest/index.html) - Cookiecutter Django documentation page.  
+  [Django Snippets](https://djangosnippets.org/) - Snippets of re-usable code for Django Web Framework.  
+  [PyCharm Help](https://www.jetbrains.com/help/pycharm/meet-pycharm.html) - Jetbrains PyCharm help page.  
+  [Python3 Built-In Functions](https://docs.python.org/3/library/functions.html) - Technical documentation of Python3 built-in functions.  
+  [Python3 Built-In Types](https://docs.python.org/3/library/stdtypes.html) - Technical documentation of Python3 built-in types.  
+  [Python Practice Book](https://anandology.com/python-practice-book/getting-started.html) - Python practice book at anandology.com.  
+  [ConfigTree Documentation](configtree.readthedocs.io/en/latest/getting_started.html) - ConfigTree documentation page.  
+  [Twitter Bootstrap](https://getbootstrap.com/docs/4.1/getting-started/introduction/) - Bootstrap documentation page.  
+  [Tailwind CSS](https://tailwindcss.com/docs/what-is-tailwind/) - Tailwind CSS documentation page.  
+  [iPython](http://ipython.readthedocs.io/en/stable/index.html) - iPython documentation page.  
+  [Django Testing](http://django-testing-docs.readthedocs.io/en/latest/index.html) - Django Testing Documentation  
+  
+  
+  
+  ### Repos
+  ---
+  [DjangoX](https://github.com/wsvincent/djangox) - DjangoX  
+  [Python Koans](https://github.com/gregmalcolm/python_koans) - Python Koans  
+  [Cookiecutter Django](https://github.com/pydanny/cookiecutter-django) - Cookiecutter Django  
+  [Scrapy](https://github.com/scrapy/scrapy) - Scrapy  
+  [RequestBin](https://github.com/Runscope/requestbin) - Inspect HTTP requests. Debug webhooks.    
+  [Python Koans](https://github.com/gregmalcolm/python_koans) - Master the Zen of Python. Make tests pass. 
+  [A Guide to Python's Magic Methods](https://rszalski.github.io/magicmethods/) - Fantastic explanation of common Python "magic" methods.  
+  
+  ### Subreddits
+  ---
+  [LearnPython](https://reddit.com/r/learnpython) - Python learning resources and help  
+  [Django](https://reddit.com/r/django) - Django web framework  
+  
+  ### Entertainment
+  ---
+  [WiiBrew](http://wiibrew.org/wiki/Main_Page) - Homebrew Nintendo Wii  
+  
+  
+'''
+tags: [
+  "links"
+]
+isStarred: false
+isTrashed: false
+linesHighlighted: []

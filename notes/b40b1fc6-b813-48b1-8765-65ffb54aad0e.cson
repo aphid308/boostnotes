@@ -1,0 +1,25 @@
+createdAt: "2019-02-22T02:25:29.100Z"
+updatedAt: "2019-02-22T03:45:27.195Z"
+type: "MARKDOWN_NOTE"
+folder: "b575d372f71ac12888ba"
+title: "6. Install Exa"
+tags: []
+content: '''
+  # 6. Install Exa
+  _exa is a replacement for ls that implements better visual cues, tree visualization and git status integration_
+  ### Install Rust using Rustup
+  
+  ```bash
+  curl https://sh.rustup.rs -sSf | sh
+  sudo apt-get install -y cargo libgit2-26
+  sudo apt-get install -y libgit2-26
+  ```
+  ```bash
+  git clone https://github.com/ogham/exa.git
+  cd exa
+  sudo make install
+  ```
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

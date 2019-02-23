@@ -1,0 +1,24 @@
+createdAt: "2018-07-06T18:45:52.204Z"
+updatedAt: "2018-07-06T19:02:44.535Z"
+type: "MARKDOWN_NOTE"
+folder: "e8ac6a1dc6146feec314"
+title: "SummonBot"
+content: '''
+  # SummonBot
+  _A Reddit bot which, when called, will post an image of a demon from the Twitter feed of ars_goetia_
+  
+  This code works in some capacity but as I have learned a good bit more since I was last active with the project, I think it is time to refactor the code and make it work a bit better.
+  
+  In theory I think I would like to make the code modular enough that it can be re used for other types of bots
+  
+  - create a function that gets the Twitter feed of ars_goetia, filters out replies/retweets, and iterates through them until it finds one whose ID is not already in the "used tweets" object
+      - returns the entire tweet object
+  - create a function that takes an individual tweet as an argument and returns the image url and the tweet ID to the caller
+  - create a function that crawls the specified reddit comments until it finds one that meets the criteria, then returns the ID of that comment
+  - create a function that takes the image url, tweet id and comment id, posts the image as a reply to the comment and if successful, adds the IDs to an object for used comments and tweets
+  - store used IDs persistantly
+  
+'''
+tags: []
+isStarred: false
+isTrashed: false

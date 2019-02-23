@@ -1,0 +1,34 @@
+createdAt: "2019-02-23T17:39:34.006Z"
+updatedAt: "2019-02-23T18:19:01.683Z"
+type: "SNIPPET_NOTE"
+folder: "82a568dbde2f931f3b1f"
+title: "How to install  and use asciinema on Ubuntu"
+tags: []
+description: "How to install  and use asciinema on Ubuntu"
+snippets: [
+  {
+    linesHighlighted: []
+    name: "install_asciinema.sh"
+    mode: "Shell"
+    content: '''
+      sudo apt-add-repository ppa:zanchey/asciinema
+      sudo apt-get update
+      sudo apt-get install asciinema
+      
+      #Start recording session
+      asciinema rec
+      
+      #To end recording hit ctrl+d
+      #You will be prompted to upload (enter) or save locally (ctrl+c)
+      #In order to upload you will need to authorize with asciinema
+      #Register an account at [asciinema - Record and share your terminal sessions, the right way](https://asciinema.org)
+      
+      #Then register your terminal with your account
+      asciinema auth
+      
+      #This will give you a url with a token that will authorize your logged in account with your terminal
+    '''
+  }
+]
+isStarred: false
+isTrashed: false

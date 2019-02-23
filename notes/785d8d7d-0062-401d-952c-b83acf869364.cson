@@ -1,0 +1,90 @@
+createdAt: "2019-02-22T03:14:10.845Z"
+updatedAt: "2019-02-22T03:43:42.476Z"
+type: "MARKDOWN_NOTE"
+folder: "b575d372f71ac12888ba"
+title: "5. Install data science tools"
+tags: []
+content: '''
+  # 5. Install data science tools
+  ### Update repos and install python3-pip and python3-dev
+  _These packages might already be installed from one of the other toolbox installations_
+  ```bash
+  sudo apt-get update
+  sudo apt-get install -y python3-pip \\
+                          python3-dev
+  ```
+  
+  ### Upgrade pip
+  ```bash
+  sudo -H pip3 install --upgrade pip
+  ```
+  
+  ### Install Jupyter and generate a config
+  ```bash
+  sudo -H pip3 install jupyter
+  jupyter-notebook --generate-config
+  ```
+  
+  ### Update Jupyter config to allow browser access
+  ```bash
+  echo "c.NotebookApp.ip = '*'" >> ~/.jupyter/jupyter_notebook_config.py
+  echo "c.NotebookApp.allow_remote_access = True" >> ~/.jupyter/jupyter_notebook_config.py
+  ```
+  ### Run Jupyter and login through browser
+  ```bash
+  jupyter-notebook --browser any
+  ```
+  _The output of this command will provide a url to enter in the web browser to access notebooks_
+  _ex: http://mynotebook.com:8888/?token=12345678901234456_
+  
+  ### Install SQL and PGAdmin
+  ```bash
+  sudo apt-get install -y postgresql postgresql-contrib
+  ```
+  ### Accessing the SQL console as postgres and add user to psql
+  _switch to postgres user and enter psql console_
+  ```bash
+  sudo -i -u postgres
+  psql
+  ```
+  _add a user to SQL for normal user operations_
+  ```sql
+  CREATE USER [your_user_name] WITH PASSWORD '[your_preferred_password]';
+  ```
+  _enter '\\q' to quit the console_
+  _enter 'exit' to exit the postgres user context_
+  
+  _login to SQL with the user we created_
+  ```bash
+  psql -U [our_user] -d postgres
+  ```
+  ### Configure SQL to listen on external interfaces
+  _drop to root_
+  ```bash
+  sudo -i -u root
+  ```
+  _echo these two edits to the two SQL conf files_
+  ```bash
+  echo "listen_addresses = '*'" >> /etc/postgresql/*/main/postgresql.conf
+  echo 'host all all 0.0.0.0/0 md5' >> /etc/postgresql/*/main/pg_hba.conf
+  ```
+  _restart SQL and exit root context_
+  ```bash
+  sudo /etc/init.d/postgresql restart
+  exit
+  ```
+  ### Install R and RStudio
+  ```bash
+  sudo apt-get install -y r-base-core
+  ```
+  _install gdebi, download and install RStudio_
+  ```bash
+  sudo apt-get install gdebi-core
+  wget https://download2.rstudio.org/rstudio-server-1.1.463-amd64.deb
+  sudo gdebi rstudio-server-1.1.463-amd64.deb
+  ```
+  _access the RStudio web interface at http://[host_or_ip]:8787_
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

@@ -1,0 +1,181 @@
+createdAt: "2018-06-18T20:06:54.772Z"
+updatedAt: "2018-06-19T16:56:41.587Z"
+type: "MARKDOWN_NOTE"
+folder: "dc87178bcf7ff750b30f"
+title: "Writing Django Views"
+content: '''
+  # Writing Django Views
+  
+  ## Writing Django Views I
+  
+  The "I" in the title might lead you to believe that there will be 
+  subsequent installations on this topic. This may be the case. More to the point 
+  it signifies that this is a cursory look at Django views as I am most likely not
+  qualified to author "Writing Django Views II". Keep this in mind, if you see 
+  anything that someone smarter than me says is wrong, let me know. (I will let you
+  know if said person is in fact, smarter than me.)  
+  
+  ## What a view do?
+  
+  A view is a bit of Django code that takes an Http request and returns a response.
+  It's really that simple.  
+  Now anyone who knows how much happens within an Http request/response, knows that's 
+  the last thing that will be that simple. Luckily Django, per usual, obscures
+  away a lot of the headaches.
+    
+  One way to process a view is with a Python function. This function takes at least
+  one argument, the request, and returns a response. This is called (believe it or not) 
+  a function based view.
+    
+  
+  
+  ```python
+  #musiclibrary/albums/views.py
+  from django.http import HttpResponse
+  
+  def hello_world(request):
+      return HttpResponse("Hello, World")
+  ```
+  
+  So that's cool and all, we have some Python code that conceivably consumes and http
+  request and satisfies it with a very simple response.  
+  Now you might ask, "But how do I get a request to it?"  
+  To this I say, "Stop yelling at me, I'm getting to that."  
+  
+  We have a file called urls.py and it (surprise, surprise) handles our url routing.  
+  
+  The basic idea for a url resolver is that we give it a specific url and the view it should send its request to.
+  
+  ```python
+  #musiclibrary/musiclibrary/urls.py
+  from django.conf.urls import patterns, include, url
+  
+  import albums.views
+  
+  
+  urlpatterns = patterns('',
+      url(r'^$', 'albums.views.hello_world'),
+  )
+  ```
+  
+  Now if we start our server and browse to localhost:8000/  
+  we see the greeting from our view function.  
+  
+  ## Writing views this way sucks.
+  #### Is there a less sucky way to write views?
+  #### Yes Virginia, there is a less sucky way to write views.
+  
+  We are going to be getting into some shortcuts here and purists won't like that. The fact is, not using these shortcuts is dumb. Not only is it it dumb, it actually violates the very prinicples of Django. Don't repeat yourself and write reusable code. The next concepts covered are Class Based Views and Generic Views. They will help you to not write tons of redundant boilerplate and keep your logic concise.  
+    
+  The most basic class based view is a class that inherits from View. So it would start like this.
+  
+  ```python
+  #musiclibrary/albums/views.py
+  from django.http import HttpResponse
+  from django.views.generic import View
+  
+  class MyView(View):
+  ```
+  
+  We would then define methods for the type of requests we want to respond to. For example GET requests.
+  
+  ```python
+  #musiclibrary/albums/views.py
+  from django.http import HttpResponse
+  from django.views.generic import View
+  
+  class MyView(View):
+      def get(self, request, *args, **kwargs):
+          return HttpResponse("Hello, World")
+  ```
+  
+  This is the same view as before but now we have much more flexibility to extend its functionality. We also need to point our url at this new view.
+  
+  ```python
+  #musiclibrary/musiclibrary/urls.py
+  from django.conf.urls import patterns, include, url
+  
+  import albums.views
+  
+  
+  urlpatterns = patterns('',
+  																							#url(r'^$', 'albums.views.hello_world'),
+  																							url(r'^$', albums.views.MyView.as_view(), name='hello-world'),
+  )
+  ```
+  
+  Take note that when we used the function based view (the commented out url) we could reference the view as a dot formatted string. When we use class based views we have to directly import the albums.views module. Another note, the 'name' attribute is not necessary at this point but will come in very handy when we start writing templates.
+    
+  If we start our server we should see the same thing as before.
+  ## Writing Django Views II
+  
+  Ok so we could probably fit all this in one tutorial. I think being able to really dive in on this topic is important. For me it was the weirdest part of learning the framework. It definitely won't hurt to take our time on each concept.  
+  
+  ## The story thus far...
+  We have a view written and a url configured to point to it. The view is about as basic as it gets and doesn't even deal with the content we have in our database. Let's fix that.
+  
+  ## Class Based Generic Views
+  Django provides us with some view classes that do generic tasks that are commonly needed in small web applications. The one we are going to look at now is the ListView which returns a list of objects from our database.
+  
+  Let's write our new view.
+  
+  ```python
+  #musiclibrary/albums/views.py
+  from django.http import HttpResponse
+  from django.views.generic import View
+  from django.views.generic import ListView
+  from albums.models import Album
+  
+  class ListAlbumView(ListView):
+      model = Artist
+      template_name = "artist_list.html"
+  
+  class MyView(View):
+      def get(self, request, *args, **kwargs):
+          return HttpResponse("Hello, World")
+  ```
+  
+  Yeah... for real, that's it. Like I said these techniques will save us lots of boilerplate for repetitive tasks.
+  Let's setup a url to go to this.
+  
+  ```python
+  #musiclibrary/musiclibrary/urls.py
+  from django.conf.urls import patterns, include, url
+  
+  import albums.views
+  
+  
+  urlpatterns = patterns('',
+                         #url(r'^$', 'albums.views.hello_world'),
+                         url(r'^$', albums.views.MyView.as_view(), name='hello-world'),
+                         url(r'^albums/$', albums.views.AlbumListView.as_view(), name='albums-list'),
+  )
+  ```
+  
+  If we start up the server and go to localhost:8000/albums  
+  We get an error that we don't have a template. You see these generic views return real responses that need to be parsed, not just strings the say hello to no one in particular.  
+  
+  ## Writing a Template
+  
+  A Django template is basically an html document with some special tags that allow us to deal with Django data. When working with the generic views the view will look for the template by default to be albums/templates/album_list.html  
+  This is handy for now, but we will change this to scale more easily with our applications. For now create the file and edit it like so.
+  
+  ```html
+  <h1>Albums</h1>
+  
+  <ul>
+    {% for album in object_list %}
+      <li class="album">{{ album }}</li>
+    {% endfor %}
+  </ul>
+  ```
+  
+  Let's break that down a little bit. As you can see we can use some programming logic in our templates. What we are doing is creating a for loop to iterate through the individual albums in the object_list returned to the template from
+  our view.  
+  We then use the template tag for a variable {{ album  }} to insert each object in as a list item element.
+  If we still have albums in our database our url will now display them.
+  
+'''
+tags: []
+isStarred: false
+isTrashed: false

@@ -1,0 +1,51 @@
+createdAt: "2018-06-19T19:19:03.778Z"
+updatedAt: "2018-06-19T19:22:34.752Z"
+type: "MARKDOWN_NOTE"
+folder: "bccde01890c021d732c8"
+title: "On Using @classmethod and @staticmethod"
+content: '''
+  # On Using `@classmethod` and `@staticmethod`  
+  
+  These methods can be called both on an instance OR on the class (in both cases, the class object will be passed as the first argument):
+  ```python
+  class Dummy(object):
+  
+      @classmethod
+      def some_function(cls,*args,**kwargs):
+          print cls
+  
+  #both of these will have exactly the same effect
+  Dummy.some_function()
+  Dummy().some_function()
+  ```
+  On the use of these on instances: There are at least two main uses for calling a classmethod on an instance:
+  - `self.some_function()` will call the version of some_function on the actual type of `self`, rather than the class in which that call happens to appear (and won't need attention if the class is renamed); and
+  - In cases where some_function is necessary to implement some protocol, but is useful to call on the class object alone.
+  
+  ### The difference with staticmethod  
+  There is another way of defining methods that don't access instance data, called staticmethod. That creates a method which does not receive an implicit first argument at all; accordingly it won't be passed any information about the instance or class on which it was called.
+  ```python
+  class Foo(object): some_static = staticmethod(lambda x: x+1)
+  Foo.some_static(1)
+  # returns 2
+  Foo().some_static(1)
+  # returns 2
+  class Bar(Foo): some_static = staticmethod(lambda x: x*2)
+  Bar.some_static(1)
+  # returns 2
+  Bar().some_static(1)
+  # returns 2
+  ```
+  
+  The main use I've found for it is to adapt an existing function (which doesn't expect to receive a self) to be a method on a class (or object).
+'''
+tags: [
+  "python"
+  "decorators"
+  "classmethod"
+  "staticmethod"
+  "oop"
+  "methods"
+]
+isStarred: false
+isTrashed: false

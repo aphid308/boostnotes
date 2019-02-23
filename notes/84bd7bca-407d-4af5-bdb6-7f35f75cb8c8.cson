@@ -1,0 +1,216 @@
+createdAt: "2018-06-19T16:57:36.266Z"
+updatedAt: "2018-06-19T17:00:42.434Z"
+type: "MARKDOWN_NOTE"
+folder: "b37fcbd0595412f586b4"
+title: "Dunders and Underscores in Naming Convention"
+content: '''
+  # Dunders and Underscores in Naming Convention
+  
+  ## SINGLE LEADING UNDERSCORE
+  A single leading underscore is normally used to indicate that a particular
+  attribute or method of a class is not intended to be a part of the public 
+  interface to that class. This is not enforced by the interepreter as in the case below
+  we are able to access both methods without issue.
+  
+  ```python
+  class Test: 
+      def __init__ ( self ): 
+          self .foo = 11 
+          self ._bar = 23
+      
+  t = Test()
+  ```
+  ```bash
+  >>> t.foo
+  11
+  >>> t._bar
+  23
+  ```
+  Single leading underscores DO affect how modules are IMPORTED
+  ```python
+  #my_module.py
+  def external_func():
+      return 23
+  def _internal_func():
+      return 42
+  ```
+  In this case importing the module with a wildcard import would not work as it will not find the the internal function. 
+  ```bash
+  >>> from my_module import *
+  >>> external_func()
+  23
+  >>> _internal_func()
+  NameError: "name '_internal_func()' is not defined"
+  ```
+  It is best practice to not use wildcards when importing modules. If you import the module itself you are able to access all functions with dot notation.
+  ```bash
+  >>> import my_module
+  >>> my_module.external_func()
+  23
+  >>> my_module._internal_func()
+  42
+  ```
+  
+  ## SINGLE TRAILING UNDERSCORE
+  
+  Single trailing underscores are conventionally used when the most appropriate variable name is
+  a reserved Python keyword. Adding a trailing underscore breaks the naming conflict.
+  ```bash
+  >>> def make_object(name, class):
+  SyntaxError: "invalid syntax"
+  ```
+  ```python
+  def make_object(name, class_):
+      pass
+  ```
+  ## LEADING DUNDER
+  
+  Unlike the 2 previous examples, a leading dunder (\\_\\_) is enforced by the Python interpreter. 
+  This syntax invokes a feature called "name mangling". The purpose of name mangling is to prevent naming
+  collisions during class inheritance.
+  ```python
+  class Test:
+      def __init__(self):
+          self.foo = 11
+          self._bar = 23
+          self.__baz = 42
+  t = Test()
+  ```
+  ```bash
+  >>> dir(t)
+  >>> [ '_Test__baz' , '__class__' , '__delattr__' , '__dict__' , '__dir__' , '__doc__' , '__eq__' , 
+       '__format__' , '__ge__' , '__getattribute__' , '__gt__' , '__hash__' , '__init__' , '__le__' , 
+       '__lt__' , '__module__' , '__ne__' , '__new__' , '__reduce__' , '__reduce_ex__' , '__repr__' , 
+       '__setattr__' , '__sizeof__' , '__str__' , '__subclasshook__' , '__weakref__' , '_bar' , 'foo' ]
+  ```
+  When we call dir() on the object instance we can see that the attribute \\_\\_baz 
+  has been renamed to '\\_Test\\_\\_baz' to avoid naming collisions when the class is extended.
+  This is the name manging mentioned before. Consider the example below when the class is extended.
+  ```python
+  class ExtendedTest(Test):
+      def __init__(self):
+          super().__init__()
+          self.foo = 'overridden'
+          self._bar = 'overridden'
+          self.__baz = 'overridden'
+  ```
+  ```bash
+  >>> t2 = ExtendedTest()
+  >>> t2.foo
+  'overridden'
+  >>> t2._bar
+  'overridden'
+  >>> t2.__baz
+  AttributeError:
+  "'ExtendedTest' object has no attribute '__baz'"
+  >>> dir (t2) 
+  [ '_ExtendedTest__baz' , '_Test__baz' , '__class__' , '__delattr__' , '__dict__' , 
+    '__dir__' , '__doc__' , '__eq__' , '__format__' , '__ge__' , '__getattribute__' , 
+    '__gt__' , '__hash__' , '__init__' , '__le__' , '__lt__' , '__module__' , '__ne__' , 
+    '__new__' , '__reduce__' , '__reduce_ex__' , '__repr__' , '__setattr__' , '__sizeof__' , 
+    '__str__' , '__subclasshook__' , '__weakref__' , '_bar' , 'foo' , 'get_vars' ]
+  ```
+  In the above example we have created a class, ExtendedTest, which extends the Test class.
+  We were able to override2 of the attributes without an issue but when we attempt to call 
+  the '\\_\\_baz attribute' it does not exist. This is because name mangling has prevented us from overriding
+  this attribute. When we inspect the object we can see that we do have an attribute, "\\_ExtendedTest\\_\\_baz",
+  which we have written the value to and can access through the object interface.
+  If we drop back to our console we can see that not only can we access the mangled name but also the original "\\_Test\\_\\_baz" from the parent class.
+  ```bash
+  >>> t2._ExtendedTest__baz
+  'overridden'
+  >>> t2._Test__baz
+  42
+  ```
+  While the attribute names are mangled when called publicly, the mangled attribute names are fully transparent to the programmer as shown in the following example.
+  ```python
+  class ManglingTest:
+      def __init__(self):
+          self.__mangled = 'hello'
+      def get_mangled(self):
+          return self.__mangled
+  ```
+  ```bash
+  >>> ManglingTest().get_mangled()
+  'hello'
+  >>> ManglingTest().__mangled
+  AttributeError:
+  "'ManglingTest' object has no attribute '__mangled'"
+  ```
+  As you can see from within the class definition we can access these mangled attributes with their un mangled names but you cannot access them that way from outside the class definition.
+  
+  The same goes for method names as shown below.
+  ```python
+  class MangledMethod:
+      def __method(self):
+          return 42
+      def call_it(self):
+          return self.__method()
+  ```
+  ```bash
+  >>> MangledMethod().__method()
+  AttributeError:
+  "'MangledMethod' object has no attribute '__method'"
+  >>> MangledMethod().call_it()
+  42
+  ```
+  The final example of name mangling is a bit more surprising. 
+  ```python
+  _MangledGlobal__mangled = 23
+  
+  class MangledGlobal:
+      def test(self):
+          return __mangled
+  ```
+  We have declared a global variable named '\\_MangledGlobal\\_\\_mangled'. This is what the return value will be expanded to in the class declaration. This means that when we call this class method we will get the value of the global variable that has already been defined.
+  ```bash
+  >>> MangledGlobal().test()
+  23
+  ```
+  Name mangling applies to any name starting with a dunder that is used in a class context and we can interpolate what the name will be expanded (mangled) to.
+  
+  ## DOUBLE LEADING AND TRAILING UNDERSCORES
+  Names with a leading and trailing underscore will not be mangled by the Python interpreter. These names are typically reserved for special use by the Python interpreter. Names like \\_\\_init\\_\\_ for class initialization or \\_\\_enter\\_\\_ and \\_\\_exit\\_\\_ for resource management within a context. It is best to avoid this naming convention so as not to collide with existing or future Python language features.
+  
+  ## SINGLE UNDERSCORE
+  The single underscore has a couple of interesting uses. When writing our programs we often have variables that we declare but will not be used again and are completely temporary or placeholders that will not be referenced again. It is useful to identify variables like this when debugging or doing code review. We can use a single underscore to act as a placeholder variable.
+  ```python
+  for _ in range(32):
+      print('Hello World.')
+  ```
+  We can also use the single underscore when unpacking expressions to denote values we don't care about and won't be referenced in the program.
+  ```python
+  car = ('red', 'auto', 12, 3812.4)
+  color, _, _, mileage = car
+  ```
+  ```bash
+  >>> color
+  'red'
+  >>> mileage
+  3812.4
+  >>> _
+  12
+  ```
+  In addition to these uses when writing programs you can use the single underscore in an interpreter session to access the value of the last evaluated statement.
+  ```bash
+  >>> 20 + 3
+  23
+  >>> _
+  23
+  >>> print(_)
+  23
+  ```
+  This functionality can be useful for declaring and interacting with objects on the fly without assigning a name to them first.
+  ```bash
+  >>> list()
+  []
+  >>> _.append(1)
+  >>> _.append(2)
+  >>> _.append(3)
+  >>> _
+  [1, 2, 3]
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

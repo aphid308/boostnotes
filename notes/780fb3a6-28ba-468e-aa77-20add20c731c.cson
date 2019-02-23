@@ -1,0 +1,26 @@
+createdAt: "2018-06-19T17:20:53.187Z"
+updatedAt: "2018-08-02T17:10:03.882Z"
+type: "SNIPPET_NOTE"
+folder: "6c96e425fe28441f83f5"
+title: "Node 6+ installation on Ubunty"
+description: "Node 6+ installation on Ubunty"
+snippets: [
+  {
+    name: "install_node.sh"
+    mode: "Shell"
+    content: '''
+      curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+      sudo apt-get install -y nodejs
+    '''
+  }
+]
+tags: [
+  "node.js"
+  "node"
+  "ubuntu"
+  "javascript"
+  "install"
+  "linux"
+]
+isStarred: false
+isTrashed: false

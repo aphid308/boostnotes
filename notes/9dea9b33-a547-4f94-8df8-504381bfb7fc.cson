@@ -1,0 +1,46 @@
+createdAt: "2018-08-06T15:52:34.102Z"
+updatedAt: "2018-08-06T15:53:44.646Z"
+type: "SNIPPET_NOTE"
+folder: "7fa5be337c9127eb71b8"
+title: "AHK script that allows use of HJKL with Alt to replace arrows, also enables \"j-j-d\" for current date"
+description: "AHK script that allows use of HJKL with Alt to replace arrows, also enables \"j-j-d\" for current date"
+snippets: [
+  {
+    name: "vimdir.ahk"
+    mode: "text"
+    content: '''
+      #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+      ; #Warn  ; Enable warnings to assist with detecting common errors.
+      SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
+      SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+      !h::
+         Send, {Left down}{Left up}
+      Return
+      
+      !j::
+         Send, {Down down}{Down up}
+      Return
+      
+      !k::
+         Send, {Up down}{Up up}
+      Return
+      
+      !l::
+         Send, {Right down}{Right up}
+      Return
+      
+      :R*?:jjd::
+      FormatTime, CurrentDateTime,, MM-dd-yy
+      SendInput %CurrentDateTime%
+      return
+    '''
+  }
+]
+tags: [
+  "ahk"
+  "autohotkey"
+  "vimkeys"
+  "vim"
+]
+isStarred: false
+isTrashed: false

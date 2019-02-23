@@ -1,0 +1,161 @@
+createdAt: "2019-02-21T03:51:45.750Z"
+updatedAt: "2019-02-21T03:53:09.721Z"
+type: "MARKDOWN_NOTE"
+folder: "cbb115fc148a179664cc"
+title: "Python LearnDataScience Tutorial"
+tags: []
+content: '''
+  # Python LearnDataScience Tutorial
+  ### Basic data creation and retrieval
+  
+  
+  
+  ```python
+  import pandas as pd
+  data = {'apples': [3, 2, 0, 1],
+          'oranges': [0, 3, 7, 2]
+         }
+  ```
+  
+  
+  ```python
+  purchases = pd.DataFrame(data, index=['June', 'Robert', 'Lily', 'David'])
+  ```
+  
+  
+  ```python
+  purchases
+  ```
+  
+  
+  
+  
+  <div>
+  
+  <table border="1" class="dataframe">
+    <thead>
+      <tr style="text-align: right;">
+        <th></th>
+        <th>apples</th>
+        <th>oranges</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>June</th>
+        <td>3</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <th>Robert</th>
+        <td>2</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <th>Lily</th>
+        <td>0</td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <th>David</th>
+        <td>1</td>
+        <td>2</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  
+  
+  
+  
+  ```python
+  purchases.loc['June']
+  ```
+  
+  
+  
+  
+      apples     3
+      oranges    0
+      Name: June, dtype: int64
+  
+  
+  
+  
+  ```python
+  data = {'age': [35, 32, 31, 35], 'sex': ['m', 'f,', 'f', 'm']}
+  ```
+  
+  
+  ```python
+  people = pd.DataFrame(data, index=['Patrick', 'Brit', 'Haley', 'Nate'])
+  ```
+  
+  
+  ```python
+  people
+  ```
+  
+  
+  
+  
+  <div>
+  
+  <table border="1" class="dataframe">
+    <thead>
+      <tr style="text-align: right;">
+        <th></th>
+        <th>age</th>
+        <th>sex</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>Patrick</th>
+        <td>35</td>
+        <td>m</td>
+      </tr>
+      <tr>
+        <th>Brit</th>
+        <td>32</td>
+        <td>f,</td>
+      </tr>
+      <tr>
+        <th>Haley</th>
+        <td>31</td>
+        <td>f</td>
+      </tr>
+      <tr>
+        <th>Nate</th>
+        <td>35</td>
+        <td>m</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  
+  
+  
+  
+  ```python
+  people.loc['Brit']
+  ```
+  
+  
+  
+  
+      age    32
+      sex    f,
+      Name: Brit, dtype: object
+  
+  
+  
+  
+  ```python
+  
+  ```
+  
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

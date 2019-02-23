@@ -1,0 +1,44 @@
+createdAt: "2018-06-21T15:26:54.507Z"
+updatedAt: "2018-06-24T21:33:43.017Z"
+type: "MARKDOWN_NOTE"
+folder: "a7b14cf237016d88200e"
+title: "Lens/Camera Data"
+content: '''
+  # Lens/Camera Data
+  
+  Manufacturers 
+  [“Goerz Berlin”, “Goerz” , “Voigtlander” , “Kodak” , “Mamiya” , “Eastman” , “Zenit”, “Nikon”, “Nikkor”, “Carl Zeiss”, “Canon”, “Minolta”, “Pentax”, “Sigma”, “Darlot”, “Ross”, “Bosch and Lomb” , “Buhl” ]
+  So wasn’t sure how exactly you would need to enter those, like with film where its setting up the manufacture before the stock kinda thing, so those are just manufacturers
+  Is there a particular way I could format out the multiple datapoints for an actual lens that would make it easier for example the lens I used on that messenger shot would be 
+  
+  Manuf. - Goerz Berlin
+  Lens name - Doppel-Anastigmat Serie III no.3. (Not a typo) 
+  Focal Length - 210mm
+  Or another would be 
+  
+  Manuf. - Mamiya
+  Lens name - Mamiya-Sekor Z 
+  Focal Length - 180mm 
+  
+  And just to throw it off focal length gets read as mm, as inches, and as cm lol so like 
+  
+  Manf. - Voigtlander 
+  Lens name - Heliar
+  Focal length - 30cm 
+  
+  Or 
+  
+  Manuf. - Eastman 
+  Lens name - Projection Anastigmat 
+  Focal Length - 7 1/2in
+'''
+tags: [
+  "data"
+  "notes"
+  "brandon_ellis"
+  "camera"
+  "chromalog"
+  "django"
+]
+isStarred: false
+isTrashed: false
